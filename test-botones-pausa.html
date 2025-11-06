@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧘‍♀️ Test Botones Pausa/Reanudar - Meditación</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: Arial, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .panel { background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); }
+        .success { background: rgba(76, 175, 80, 0.3); border: 2px solid #4caf50; }
+        .warning { background: rgba(255, 193, 7, 0.3); border: 2px solid #ffc107; }
+        .error { background: rgba(244, 67, 54, 0.3); border: 2px solid #f44336; }
+        .hidden { display: none !important; }
+        .log { background: rgba(0,0,0,0.8); color: #0f0; font-family: monospace; font-size: 12px; max-height: 300px; overflow-y: auto; }
+        .btn-control-meditacion { transition: all 0.3s ease; }
+        .btn-control-meditacion:hover { transform: translateY(-2px); }
+    </style>
+</head>
+<body class="text-white">
+    <div class="container mx-auto p-6">
+        <h1 class="text-3xl font-bold text-center mb-8">🧘‍♀️ Test Botones Pausa/Reanudar</h1>
+        
+        <div id="status" class="panel warning p-4 rounded-lg mb-6">
+            🔄 Listos para probar los nuevos botones de control...
+        </div>
+        
+        <!-- Simulador de interfaz de meditación -->
+        <div class="panel p-6 rounded-lg mb-6">
+            <h3 class="text-xl font-bold mb-4">🎯 Interfaz de Meditación con Controles</h3>
+            
+            <!-- Área de texto de meditación -->
+            <div class="bg-white text-black p-6 rounded-xl mb-6">
+                <div id="texto-meditacion" class="text-lg leading-relaxed">
+                    Presiona "Comenzar Meditación Guiada" para iniciar la experiencia con los nuevos controles
+                </div>
+            </div>
+            
+            <!-- Controles originales -->
+            <div class="controles-meditacion space-y-4">
+                <div class="flex gap-4 justify-center">
+                    <button class="btn-meditacion bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white font-bold py-3 px-6 rounded-full shadow-lg transition-all" onclick="iniciarMeditacionTest()">
+                        🌟 Comenzar Meditación Guiada
+                    </button>
+                    <button class="btn-meditacion bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transition-all" onclick="saltarMeditacionTest()">
+                        ⏭️ Saltar Meditación
+                    </button>
+                </div>
+                
+                <!-- Controles de pausa/reanudar (implementación nueva) -->
+                <div id="controles-pausa" class="flex gap-4 justify-center hidden">
+                    <button id="btn-pausar-meditacion" class="btn-control-meditacion bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-bold py-2 px-5 rounded-full shadow-lg transition-all" onclick="pausarMeditacionTest()">
+                        ⏸️ Pausar
+                    </button>
+                    <button id="btn-reanudar-meditacion" class="btn-control-meditacion bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white font-bold py-2 px-5 rounded-full shadow-lg transition-all hidden" onclick="reanudarMeditacionTest()">
+                        ▶️ Reanudar
+                    </button>
+                    <button id="btn-detener-meditacion" class="btn-control-meditacion bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white font-bold py-2 px-5 rounded-full shadow-lg transition-all" onclick="detenerMeditacionTest()">
+                        ⏹️ Detener
+                    </button>
+                </div>
+                
+                <div class="bg-blue-50 text-blue-700 p-4 rounded-lg">
+                    <p class="text-sm">
+                        🔊 <strong>Nueva funcionalidad:</strong> Ahora puedes pausar y reanudar la meditación en cualquier momento.
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Estado de la meditación -->
+        <div class="panel p-4 rounded-lg mb-6">
+            <h4 class="text-lg font-bold mb-3">📊 Estado de la Meditación</h4>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="bg-black bg-opacity-30 p-3 rounded-lg text-center">
+                    <div class="text-2xl font-bold text-green-400" id="estado-activa">No</div>
+                    <div class="text-sm">Activa</div>
+                </div>
+                <div class="bg-black bg-opacity-30 p-3 rounded-lg text-center">
+                    <div class="text-2xl font-bold text-orange-400" id="estado-pausada">No</div>
+                    <div class="text-sm">Pausada</div>
+                </div>
+                <div class="bg-black bg-opacity-30 p-3 rounded-lg text-center">
+                    <div class="text-2xl font-bold text-blue-400" id="frase-actual">0</div>
+                    <div class="text-sm">Frase</div>
+                </div>
+                <div class="bg-black bg-opacity-30 p-3 rounded-lg text-center">
+                    <div class="text-2xl font-bold text-purple-400" id="voz-estado">Detenida</div>
+                    <div class="text-sm">Voz</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tests específicos -->
+        <div class="panel p-4 rounded-lg mb-6">
+            <h4 class="text-lg font-bold mb-3">🧪 Tests de Funcionalidad</h4>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                <button onclick="testPausaRapida()" class="bg-orange-500 hover:bg-orange-600 p-3 rounded-lg text-sm font-bold">
+                    ⚡ Pausa Rápida
+                </button>
+                <button onclick="testReanudarRapido()" class="bg-blue-500 hover:bg-blue-600 p-3 rounded-lg text-sm font-bold">
+                    🔄 Reanudar Rápido
+                </button>
+                <button onclick="testDetenerCompleto()" class="bg-red-500 hover:bg-red-600 p-3 rounded-lg text-sm font-bold">
+                    🛑 Detener Completo
+                </button>
+                <button onclick="verificarEstado()" class="bg-green-500 hover:bg-green-600 p-3 rounded-lg text-sm font-bold">
+                    ✅ Verificar Estado
+                </button>
+            </div>
+        </div>
+        
+        <div class="panel p-4 rounded-lg">
+            <h4 class="text-lg font-bold mb-3">📝 Log de Eventos</h4>
+            <div id="log" class="log p-4 rounded-lg">
+                Sistema de control de meditación inicializado...\n
+            </div>
+            <button onclick="limpiarLog()" class="mt-2 bg-gray-500 hover:bg-gray-600 px-4 py-2 rounded text-sm">
+                🧹 Limpiar Log
+            </button>
+        </div>
+    </div>
+
+    <script src="js/actividades-interactivas.js"></script>
+    
+    <script>
+        // Estado simulado de prueba
+        let testState = {
+            activa: false,
+            pausada: false,
+            indiceActual: 0,
+            vozActiva: false
+        };
+        
+        const frasesTest = [
+            "Hola, soy Luna, tu amiga que te va a acompañar en este viaje mágico...",
+            "Ahora vamos a respirar juntos. Inhala lentamente... uno, dos, tres...",
+            "Imagina conmigo que en tu mente hay una puerta muy especial...",
+            "Esa puerta mágica se está abriendo despacito hacia tu lugar favorito..."
+        ];
+        
+        function log(mensaje) {
+            const logDiv = document.getElementById('log');
+            const tiempo = new Date().toLocaleTimeString();
+            logDiv.innerHTML += `[${tiempo}] ${mensaje}\n`;
+            logDiv.scrollTop = logDiv.scrollHeight;
+            console.log(mensaje);
+        }
+        
+        function actualizarEstado() {
+            document.getElementById('estado-activa').textContent = testState.activa ? 'Sí' : 'No';
+            document.getElementById('estado-pausada').textContent = testState.pausada ? 'Sí' : 'No';
+            document.getElementById('frase-actual').textContent = testState.indiceActual + 1;
+            document.getElementById('voz-estado').textContent = testState.vozActiva ? 'Hablando' : 'Silencio';
+            
+            // Actualizar colores
+            document.getElementById('estado-activa').className = testState.activa ? 'text-2xl font-bold text-green-400' : 'text-2xl font-bold text-red-400';
+            document.getElementById('estado-pausada').className = testState.pausada ? 'text-2xl font-bold text-orange-400' : 'text-2xl font-bold text-gray-400';
+        }
+        
+        function updateStatus(tipo, mensaje) {
+            const status = document.getElementById('status');
+            status.className = `panel ${tipo} p-4 rounded-lg mb-6`;
+            status.innerHTML = mensaje;
+        }
+        
+        // Funciones de prueba de la interfaz
+        function iniciarMeditacionTest() {
+            log('🌟 === INICIANDO MEDITACIÓN CON NUEVOS CONTROLES ===');
+            
+            testState.activa = true;
+            testState.pausada = false;
+            testState.indiceActual = 0;
+            
+            // Mostrar controles (igual que el código real)
+            const controlesPausa = document.getElementById('controles-pausa');
+            const btnPausar = document.getElementById('btn-pausar-meditacion');
+            const btnReanudar = document.getElementById('btn-reanudar-meditacion');
+            
+            if (controlesPausa) controlesPausa.classList.remove('hidden');
+            if (btnPausar) btnPausar.classList.remove('hidden');
+            if (btnReanudar) btnReanudar.classList.add('hidden');
+            
+            // Actualizar texto
+            document.getElementById('texto-meditacion').textContent = frasesTest[0];
+            
+            updateStatus('success', '✅ Meditación iniciada - Controles de pausa/reanudar ahora visibles');
+            log('🎛️ Controles de pausa/reanudar mostrados');
+            log('👁️ Botón pausar: visible, Botón reanudar: oculto');
+            
+            // Simular voz
+            testState.vozActiva = true;
+            setTimeout(() => {
+                if (testState.activa && !testState.pausada) {
+                    testState.indiceActual++;
+                    if (testState.indiceActual < frasesTest.length) {
+                        document.getElementById('texto-meditacion').textContent = frasesTest[testState.indiceActual];
+                    }
+                }
+                testState.vozActiva = false;
+                actualizarEstado();
+            }, 3000);
+            
+            actualizarEstado();
+        }
+        
+        function pausarMeditacionTest() {
+            log('⏸️ === PAUSANDO MEDITACIÓN ===');
+            
+            testState.pausada = true;
+            testState.vozActiva = false;
+            
+            // Cambiar botones (igual que el código real)
+            const btnPausar = document.getElementById('btn-pausar-meditacion');
+            const btnReanudar = document.getElementById('btn-reanudar-meditacion');
+            
+            if (btnPausar) btnPausar.classList.add('hidden');
+            if (btnReanudar) btnReanudar.classList.remove('hidden');
+            
+            updateStatus('warning', '⏸️ Meditación pausada - Botón reanudar ahora visible');
+            log('🎛️ Botón pausar: oculto, Botón reanudar: visible');
+            log('🔇 Voz detenida, esperando para reanudar');
+            
+            actualizarEstado();
+        }
+        
+        function reanudarMeditacionTest() {
+            log('▶️ === REANUDANDO MEDITACIÓN ===');
+            
+            testState.pausada = false;
+            testState.vozActiva = true;
+            
+            // Cambiar botones (igual que el código real)
+            const btnPausar = document.getElementById('btn-pausar-meditacion');
+            const btnReanudar = document.getElementById('btn-reanudar-meditacion');
+            
+            if (btnPausar) btnPausar.classList.remove('hidden');
+            if (btnReanudar) btnReanudar.classList.add('hidden');
+            
+            updateStatus('success', '▶️ Meditación reanudada - Botón pausar nuevamente visible');
+            log('🎛️ Botón pausar: visible, Botón reanudar: oculto');
+            log('🔊 Voz reanudada desde donde se pausó');
+            
+            // Simular continuación
+            setTimeout(() => {
+                testState.vozActiva = false;
+                actualizarEstado();
+            }, 2000);
+            
+            actualizarEstado();
+        }
+        
+        function detenerMeditacionTest() {
+            log('⏹️ === DETENIENDO MEDITACIÓN ===');
+            
+            testState.activa = false;
+            testState.pausada = false;
+            testState.vozActiva = false;
+            
+            // Ocultar controles (igual que el código real)
+            const controlesPausa = document.getElementById('controles-pausa');
+            if (controlesPausa) controlesPausa.classList.add('hidden');
+            
+            document.getElementById('texto-meditacion').textContent = '🛑 Meditación detenida. Puedes reiniciar cuando gustes.';
+            
+            updateStatus('error', '⏹️ Meditación detenida - Controles ocultos');
+            log('🎛️ Todos los controles de pausa/reanudar ocultos');
+            log('💾 Estado de meditación reiniciado');
+            
+            actualizarEstado();
+        }
+        
+        function saltarMeditacionTest() {
+            log('⏭️ Saltando meditación');
+            detenerMeditacionTest();
+        }
+        
+        // Tests específicos
+        function testPausaRapida() {
+            log('⚡ === TEST PAUSA RÁPIDA ===');
+            if (!testState.activa) {
+                iniciarMeditacionTest();
+                setTimeout(pausarMeditacionTest, 1000);
+            } else {
+                pausarMeditacionTest();
+            }
+        }
+        
+        function testReanudarRapido() {
+            log('🔄 === TEST REANUDAR RÁPIDO ===');
+            if (testState.pausada) {
+                reanudarMeditacionTest();
+            } else {
+                log('⚠️ Primero necesitas pausar la meditación');
+            }
+        }
+        
+        function testDetenerCompleto() {
+            log('🛑 === TEST DETENER COMPLETO ===');
+            detenerMeditacionTest();
+        }
+        
+        function verificarEstado() {
+            log('✅ === VERIFICACIÓN DE ESTADO ===');
+            log(`📊 Activa: ${testState.activa}`);
+            log(`⏸️ Pausada: ${testState.pausada}`);
+            log(`📝 Frase actual: ${testState.indiceActual + 1}/${frasesTest.length}`);
+            log(`🔊 Voz: ${testState.vozActiva ? 'Activa' : 'Inactiva'}`);
+            
+            // Verificar visibilidad de botones
+            const controlesPausa = document.getElementById('controles-pausa');
+            const btnPausar = document.getElementById('btn-pausar-meditacion');
+            const btnReanudar = document.getElementById('btn-reanudar-meditacion');
+            
+            log(`🎛️ Controles visibles: ${!controlesPausa.classList.contains('hidden')}`);
+            log(`⏸️ Botón pausar visible: ${!btnPausar.classList.contains('hidden')}`);
+            log(`▶️ Botón reanudar visible: ${!btnReanudar.classList.contains('hidden')}`);
+        }
+        
+        function limpiarLog() {
+            document.getElementById('log').innerHTML = 'Log limpiado...\n';
+        }
+        
+        // Inicializar
+        window.addEventListener('load', function() {
+            log('🚀 Test de controles de meditación inicializado');
+            updateStatus('success', '🎯 Sistema listo - Prueba los nuevos botones de pausa y reanudar');
+            actualizarEstado();
+        });
+        
+        // Actualizar estado cada segundo
+        setInterval(actualizarEstado, 1000);
+    </script>
+</body>
+</html>

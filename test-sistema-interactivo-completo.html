@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎨 SISTEMA COMPLETO: MANCHAS + MEDITACIÓN</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        .container { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+        }
+        .test-section { 
+            background: rgba(255,255,255,0.1); 
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 25px; 
+            margin: 20px 0; 
+            border-radius: 15px; 
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+        .actividad-btn { 
+            background: linear-gradient(135deg, #ff6b6b, #ff8e53);
+            color: white; 
+            border: none; 
+            padding: 20px 25px; 
+            border-radius: 12px; 
+            cursor: pointer; 
+            font-size: 16px; 
+            font-weight: bold; 
+            margin: 10px; 
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .actividad-btn:hover { 
+            transform: translateY(-3px) scale(1.05); 
+        }
+        .test-btn {
+            background: linear-gradient(135deg, #4ecdc4, #44a08d);
+        }
+        #lab-content-container { 
+            background: rgba(255,255,255,0.95); 
+            color: #333; 
+            padding: 30px; 
+            border-radius: 15px; 
+            margin: 20px 0; 
+            min-height: 500px;
+        }
+        .debug { 
+            background: #000; 
+            color: #0f0; 
+            padding: 20px; 
+            font-family: monospace; 
+            border-radius: 10px; 
+            max-height: 400px; 
+            overflow-y: auto; 
+        }
+        .success { color: #44ff44; }
+        .error { color: #ff4444; }
+        .warning { color: #ffaa44; }
+        h1 { 
+            text-align: center; 
+            margin-bottom: 30px; 
+            font-size: 2.5em; 
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 SISTEMA COMPLETO: SIMULADOR + MEDITACIÓN</h1>
+        
+        <div class="test-section">
+            <h3>🔧 Test del Sistema Completo</h3>
+            <button onclick="testSistemaCompleto()" class="actividad-btn test-btn">🔍 TEST SISTEMA COMPLETO</button>
+            <button onclick="limpiarDebug()" class="actividad-btn test-btn">🧹 LIMPIAR</button>
+        </div>
+        
+        <div class="test-section">
+            <h3>🎯 Actividades con Elementos Interactivos</h3>
+            <p><strong>Estas actividades ahora incluyen:</strong></p>
+            <ul>
+                <li>🎨 <strong>Simulador de manchas</strong> con canvas interactivo</li>
+                <li>🧘‍♀️ <strong>Meditación guiada</strong> para preparar la creatividad</li>
+                <li>🖌️ <strong>Herramientas profesionales</strong> (pincel, agua, gotero)</li>
+                <li>💾 <strong>Guardado de creaciones</strong></li>
+            </ul>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-top: 20px;">
+                <button onclick="mostrarActividad(1)" class="actividad-btn">
+                    <div style="font-size: 2em; margin-bottom: 10px;">🎲</div>
+                    <div>Actividad 1</div>
+                    <div style="font-size: 0.8em;">Manchas Interactivas</div>
+                </button>
+                
+                <button onclick="mostrarActividad(2)" class="actividad-btn">
+                    <div style="font-size: 2em; margin-bottom: 10px;">🏠</div>
+                    <div>Actividad 2</div>
+                    <div style="font-size: 0.8em;">Con Meditación</div>
+                </button>
+                
+                <button onclick="mostrarActividad(4)" class="actividad-btn">
+                    <div style="font-size: 2em; margin-bottom: 10px;">🖼️</div>
+                    <div>Actividad 4</div>
+                    <div style="font-size: 0.8em;">Simulador Avanzado</div>
+                </button>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h3>📋 Área de Desarrollo Interactivo</h3>
+            <div id="lab-content-container">
+                <div style="text-align: center; padding: 50px;">
+                    <div style="font-size: 3em; margin-bottom: 20px;">🎨</div>
+                    <h3>¡Sistema Interactivo Listo!</h3>
+                    <p>Selecciona una actividad arriba para ver:</p>
+                    <ul style="text-align: left; max-width: 400px; margin: 20px auto;">
+                        <li>🎨 Canvas para dibujar manchas</li>
+                        <li>🧘‍♀️ Sistema de meditación</li>
+                        <li>🛠️ Herramientas profesionales</li>
+                        <li>💾 Funciones de guardado</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h3>📊 Console de Debug</h3>
+            <div id="debug" class="debug">Esperando test del sistema...</div>
+        </div>
+    </div>
+
+    <script src="js/actividades-interactivas.js"></script>
+    
+    <script>
+        function log(mensaje, tipo = 'info') {
+            const debug = document.getElementById('debug');
+            const tiempo = new Date().toLocaleTimeString();
+            let color = '#0f0';
+            if (tipo === 'error') color = '#ff4444';
+            if (tipo === 'warning') color = '#ffaa44';
+            if (tipo === 'success') color = '#44ff44';
+            
+            debug.innerHTML += `<span style="color: ${color}">[${tiempo}] ${mensaje}</span>\n`;
+            debug.scrollTop = debug.scrollHeight;
+            console.log(mensaje);
+        }
+        
+        function limpiarDebug() {
+            document.getElementById('debug').innerHTML = 'Debug limpiado...\n';
+        }
+        
+        function testSistemaCompleto() {
+            log('🔥 === TEST SISTEMA COMPLETO ===', 'success');
+            
+            // Test funciones básicas
+            const funcionesBasicas = [
+                'ActividadState', 'ACTIVIDADES_CONFIG', 'mostrarActividad', 
+                'iniciarActividadInteractiva', 'siguienteFaseActividad'
+            ];
+            
+            let basicas = 0;
+            funcionesBasicas.forEach(nombre => {
+                if (window[nombre]) {
+                    log(`✅ ${nombre}: DISPONIBLE`, 'success');
+                    basicas++;
+                } else {
+                    log(`❌ ${nombre}: NO DISPONIBLE`, 'error');
+                }
+            });
+            
+            // Test funciones interactivas
+            const funcionesInteractivas = [
+                'activarHerramientaMancha', 'limpiarManchaPersonal', 'guardarManchaPersonal',
+                'iniciarMeditacion', 'pausarMeditacion', 'saltarMeditacion'
+            ];
+            
+            let interactivas = 0;
+            funcionesInteractivas.forEach(nombre => {
+                if (window[nombre]) {
+                    log(`🎨 ${nombre}: DISPONIBLE`, 'success');
+                    interactivas++;
+                } else {
+                    log(`❌ ${nombre}: NO DISPONIBLE`, 'error');
+                }
+            });
+            
+            // Test contenedor
+            const contenedor = document.getElementById('lab-content-container');
+            if (contenedor) {
+                log('✅ Contenedor lab-content-container: ENCONTRADO', 'success');
+            } else {
+                log('❌ Contenedor lab-content-container: NO ENCONTRADO', 'error');
+            }
+            
+            // Resumen
+            const totalBasicas = funcionesBasicas.length;
+            const totalInteractivas = funcionesInteractivas.length;
+            const porcentajeBasicas = Math.round((basicas / totalBasicas) * 100);
+            const porcentajeInteractivas = Math.round((interactivas / totalInteractivas) * 100);
+            
+            log(`📊 RESUMEN:`, 'info');
+            log(`   Funciones básicas: ${basicas}/${totalBasicas} (${porcentajeBasicas}%)`, 'info');
+            log(`   Funciones interactivas: ${interactivas}/${totalInteractivas} (${porcentajeInteractivas}%)`, 'info');
+            
+            if (porcentajeBasicas === 100 && porcentajeInteractivas === 100) {
+                log('🎉 SISTEMA COMPLETAMENTE FUNCIONAL!', 'success');
+                log('✅ Simulador de manchas: LISTO', 'success');
+                log('✅ Sistema de meditación: LISTO', 'success');
+                log('✅ Todas las herramientas: DISPONIBLES', 'success');
+            } else {
+                log('⚠️ Sistema con problemas parciales', 'warning');
+            }
+        }
+        
+        // Auto-test al cargar
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                log('🚀 Sistema cargado - ejecutando test automático...', 'info');
+                testSistemaCompleto();
+            }, 1000);
+        });
+        
+        // Monitor de errores
+        window.addEventListener('error', (e) => {
+            log(`💥 ERROR: ${e.message} (línea ${e.lineno})`, 'error');
+        });
+        
+        // Monitor de cambios en el contenido
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.target.id === 'lab-content-container' && mutation.type === 'childList') {
+                    log('📝 Contenido actualizado', 'success');
+                    
+                    // Verificar elementos específicos
+                    const canvas = document.getElementById('canvas-manchas');
+                    const meditacion = document.querySelector('.meditacion-interactiva');
+                    
+                    if (canvas) log('🎨 Canvas de manchas detectado', 'success');
+                    if (meditacion) log('🧘‍♀️ Sistema de meditación detectado', 'success');
+                }
+            });
+        });
+        
+        observer.observe(document.getElementById('lab-content-container'), {
+            childList: true,
+            subtree: true
+        });
+    </script>
+</body>
+</html>

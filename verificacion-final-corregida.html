@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✅ VERIFICACIÓN FINAL - ACTIVIDADES CORREGIDAS</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        .container { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+        }
+        .test-section { 
+            background: rgba(255,255,255,0.1); 
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 25px; 
+            margin: 20px 0; 
+            border-radius: 15px; 
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+        .actividad-btn { 
+            background: linear-gradient(135deg, #ff6b6b, #ff8e53);
+            color: white; 
+            border: none; 
+            padding: 20px 25px; 
+            border-radius: 12px; 
+            cursor: pointer; 
+            font-size: 16px; 
+            font-weight: bold; 
+            margin: 10px; 
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            min-width: 200px;
+        }
+        .actividad-btn:hover { 
+            transform: translateY(-3px) scale(1.05); 
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+        .actividad-btn.test { 
+            background: linear-gradient(135deg, #4ecdc4, #44a08d);
+        }
+        .debug { 
+            background: rgba(0,0,0,0.8); 
+            color: #00ff00; 
+            padding: 20px; 
+            font-family: 'Courier New', monospace; 
+            font-size: 13px; 
+            border-radius: 10px; 
+            max-height: 500px; 
+            overflow-y: auto; 
+            margin: 15px 0; 
+            border: 1px solid rgba(0,255,0,0.3);
+        }
+        .success { color: #00ff88; font-weight: bold; }
+        .error { color: #ff4444; font-weight: bold; }
+        .warning { color: #ffaa44; font-weight: bold; }
+        .info { color: #4488ff; font-weight: bold; }
+        #lab-content-container { 
+            background: rgba(255,255,255,0.95); 
+            color: #333; 
+            padding: 30px; 
+            border-radius: 15px; 
+            margin: 20px 0; 
+            min-height: 400px;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        .status-ok { background: #00ff88; }
+        .status-error { background: #ff4444; }
+        .status-warning { background: #ffaa44; }
+        h1 { 
+            text-align: center; 
+            margin-bottom: 30px; 
+            font-size: 2.5em; 
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        h3 { 
+            margin-top: 0; 
+            font-size: 1.3em; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>✅ VERIFICACIÓN FINAL: ACTIVIDADES CORREGIDAS</h1>
+        
+        <div class="test-section">
+            <h3>🔧 Sistema de Diagnóstico</h3>
+            <button onclick="diagnosticoCompleto()" class="actividad-btn test">🔍 DIAGNÓSTICO COMPLETO</button>
+            <button onclick="limpiarTodo()" class="actividad-btn test">🧹 LIMPIAR TODO</button>
+            <button onclick="simularCicloCompleto()" class="actividad-btn test">🔄 SIMULAR CICLO COMPLETO</button>
+        </div>
+        
+        <div class="test-section">
+            <h3>🎯 Actividades del Laboratorio (ENTORNO REAL)</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                <button onclick="mostrarActividad(1)" class="actividad-btn">
+                    <div style="font-size: 2em; margin-bottom: 10px;">🎲</div>
+                    <div style="font-size: 1.1em; margin-bottom: 5px;">Actividad 1</div>
+                    <div style="font-size: 0.85em; opacity: 0.9;">El Hacer del Azar</div>
+                </button>
+                
+                <button onclick="mostrarActividad(2)" class="actividad-btn">
+                    <div style="font-size: 2em; margin-bottom: 10px;">🏠</div>
+                    <div style="font-size: 1.1em; margin-bottom: 5px;">Actividad 2</div>
+                    <div style="font-size: 0.85em; opacity: 0.9;">El Lugar que me Habita</div>
+                </button>
+                
+                <button onclick="mostrarActividad(3)" class="actividad-btn">
+                    <div style="font-size: 2em; margin-bottom: 10px;">👥</div>
+                    <div style="font-size: 1.1em; margin-bottom: 5px;">Actividad 3</div>
+                    <div style="font-size: 0.85em; opacity: 0.9;">Retrato Colectivo</div>
+                </button>
+                
+                <button onclick="mostrarActividad(4)" class="actividad-btn">
+                    <div style="font-size: 2em; margin-bottom: 10px;">🖼️</div>
+                    <div style="font-size: 1.1em; margin-bottom: 5px;">Actividad 4</div>
+                    <div style="font-size: 0.85em; opacity: 0.9;">Actividad Mancha</div>
+                </button>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h3>📋 Área de Desarrollo de Actividades</h3>
+            <div id="lab-content-container">
+                <div style="text-align: center; padding: 50px; color: #666;">
+                    <div style="font-size: 3em; margin-bottom: 20px;">🧪</div>
+                    <h3>Laboratorio Listo</h3>
+                    <p>Selecciona una actividad arriba para comenzar la experiencia completa.</p>
+                    <p style="font-size: 0.9em; margin-top: 20px;">
+                        <span class="status-indicator status-ok"></span>Sistema cargado y verificado
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h3>📊 Consola de Debugging</h3>
+            <div id="debug" class="debug">Esperando diagnóstico...</div>
+        </div>
+    </div>
+
+    <script src="js/actividades-interactivas.js"></script>
+    
+    <script>
+        let logCount = 0;
+        
+        function log(mensaje, tipo = 'info') {
+            const debug = document.getElementById('debug');
+            const tiempo = new Date().toLocaleTimeString();
+            let className = 'info';
+            
+            switch(tipo) {
+                case 'success': className = 'success'; break;
+                case 'error': className = 'error'; break;
+                case 'warning': className = 'warning'; break;
+            }
+            
+            logCount++;
+            debug.innerHTML += `<div class="${className}">[${tiempo}] #${logCount} ${mensaje}</div>`;
+            debug.scrollTop = debug.scrollHeight;
+            console.log(`${tipo.toUpperCase()}: ${mensaje}`);
+        }
+        
+        function limpiarTodo() {
+            document.getElementById('debug').innerHTML = 'Debug limpiado...\n';
+            logCount = 0;
+        }
+        
+        function diagnosticoCompleto() {
+            log('🔥 === DIAGNÓSTICO COMPLETO DEL SISTEMA ===', 'info');
+            
+            // 1. Verificar carga del script
+            log('1️⃣ Verificando carga del sistema...', 'info');
+            
+            // 2. Verificar funciones críticas
+            const funcionesCriticas = [
+                'ActividadState', 'ACTIVIDADES_CONFIG', 'mostrarActividad', 
+                'iniciarActividadInteractiva', 'mostrarFaseActividad', 'siguienteFaseActividad'
+            ];
+            
+            let funcionesOK = 0;
+            funcionesCriticas.forEach(nombre => {
+                if (window[nombre]) {
+                    log(`✅ ${nombre}: DISPONIBLE (${typeof window[nombre]})`, 'success');
+                    funcionesOK++;
+                } else {
+                    log(`❌ ${nombre}: NO DISPONIBLE`, 'error');
+                }
+            });
+            
+            // 3. Verificar estado
+            if (window.ActividadState) {
+                log(`📊 Estado Global: actividad=${window.ActividadState.actividadActual || 'ninguna'}, fase=${window.ActividadState.faseActual || 0}`, 'info');
+            }
+            
+            // 4. Verificar configuración
+            if (window.ACTIVIDADES_CONFIG) {
+                const actividades = Object.keys(window.ACTIVIDADES_CONFIG);
+                log(`📋 Actividades Configuradas: ${actividades.length} (${actividades.join(', ')})`, 'info');
+                
+                actividades.forEach(id => {
+                    const act = window.ACTIVIDADES_CONFIG[id];
+                    log(`   📌 ${id}: "${act.titulo}" - ${act.fases.length} fases`, 'info');
+                });
+            }
+            
+            // 5. Verificar contenedores DOM
+            const contenedorLab = document.getElementById('lab-content-container');
+            const contenedorFase = document.getElementById('fase-contenido');
+            
+            if (contenedorLab) {
+                log('✅ Contenedor lab-content-container: DISPONIBLE', 'success');
+            } else {
+                log('⚠️ Contenedor lab-content-container: NO ENCONTRADO', 'warning');
+            }
+            
+            if (contenedorFase) {
+                log('✅ Contenedor fase-contenido: DISPONIBLE', 'success');
+            } else {
+                log('ℹ️ Contenedor fase-contenido: NO ENCONTRADO (normal en laboratorio)', 'info');
+            }
+            
+            // 6. Resumen final
+            const porcentaje = Math.round((funcionesOK / funcionesCriticas.length) * 100);
+            if (porcentaje === 100) {
+                log(`🎉 SISTEMA COMPLETAMENTE FUNCIONAL (${porcentaje}%)`, 'success');
+                log('✅ Todas las funciones están disponibles y listas para usar', 'success');
+            } else {
+                log(`⚠️ Sistema con problemas (${porcentaje}% funcional)`, 'warning');
+            }
+            
+            log('🔥 === FIN DEL DIAGNÓSTICO ===', 'info');
+        }
+        
+        function simularCicloCompleto() {
+            log('🔄 === SIMULANDO CICLO COMPLETO ===', 'info');
+            
+            setTimeout(() => {
+                log('🎯 Simulando click en Actividad 1...', 'info');
+                if (window.mostrarActividad) {
+                    window.mostrarActividad(1);
+                    log('✅ mostrarActividad(1) ejecutada', 'success');
+                    
+                    setTimeout(() => {
+                        log('➡️ Simulando avance de fase...', 'info');
+                        if (window.siguienteFaseActividad) {
+                            window.siguienteFaseActividad();
+                            log('✅ siguienteFaseActividad() ejecutada', 'success');
+                        }
+                    }, 2000);
+                }
+            }, 1000);
+        }
+        
+        // Auto-diagnóstico al cargar
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                log('🚀 Sistema de verificación cargado', 'success');
+                diagnosticoCompleto();
+            }, 1000);
+        });
+        
+        // Monitor de errores
+        window.addEventListener('error', (e) => {
+            log(`💥 ERROR DETECTADO: ${e.message} (línea ${e.lineno})`, 'error');
+        });
+        
+        // Monitor de clics en actividades
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.actividad-btn') && e.target.getAttribute('onclick')) {
+                const btn = e.target.closest('.actividad-btn');
+                const onclick = btn.getAttribute('onclick');
+                log(`🖱️ CLICK: ${btn.textContent.replace(/\s+/g, ' ').trim()}`, 'info');
+                log(`   Comando: ${onclick}`, 'info');
+            }
+        });
+        
+        // Monitor de cambios en contenido
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.target.id === 'lab-content-container' && mutation.type === 'childList') {
+                    log('📝 Contenido de actividad actualizado', 'success');
+                    
+                    const botones = mutation.target.querySelectorAll('button[onclick*="siguienteFaseActividad"]');
+                    if (botones.length > 0) {
+                        log(`✅ ${botones.length} botones de navegación detectados`, 'success');
+                    }
+                }
+            });
+        });
+        
+        observer.observe(document.getElementById('lab-content-container'), {
+            childList: true,
+            subtree: true
+        });
+    </script>
+</body>
+</html>

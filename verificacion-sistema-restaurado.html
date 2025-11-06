@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✅ VERIFICACIÓN SISTEMA RESTAURADO</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            padding: 20px; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            color: white; 
+        }
+        .container { 
+            max-width: 1000px; 
+            margin: 0 auto; 
+            background: rgba(255,255,255,0.1); 
+            padding: 30px; 
+            border-radius: 15px; 
+            backdrop-filter: blur(10px); 
+        }
+        .panel { 
+            background: rgba(255,255,255,0.08); 
+            padding: 20px; 
+            margin: 15px 0; 
+            border-radius: 10px; 
+            border: 1px solid rgba(255,255,255,0.2); 
+        }
+        .status { 
+            padding: 10px 15px; 
+            margin: 8px 0; 
+            border-radius: 8px; 
+            font-weight: bold; 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+        }
+        .status.ok { background: rgba(76, 175, 80, 0.3); border: 1px solid #4CAF50; }
+        .status.error { background: rgba(244, 67, 54, 0.3); border: 1px solid #f44336; }
+        .status.warning { background: rgba(255, 193, 7, 0.3); border: 1px solid #FFC107; }
+        .status.info { background: rgba(33, 150, 243, 0.3); border: 1px solid #2196F3; }
+        button { 
+            background: #4CAF50; 
+            color: white; 
+            border: none; 
+            padding: 12px 25px; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-size: 16px; 
+            font-weight: bold; 
+            margin: 10px; 
+            transition: all 0.3s; 
+        }
+        button:hover { 
+            background: #45a049; 
+            transform: translateY(-2px); 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3); 
+        }
+        .log { 
+            background: rgba(0,0,0,0.8); 
+            color: #0f0; 
+            padding: 15px; 
+            font-family: monospace; 
+            font-size: 12px; 
+            border-radius: 8px; 
+            max-height: 300px; 
+            overflow-y: auto; 
+            margin: 15px 0; 
+        }
+        h1 { 
+            text-align: center; 
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5); 
+            margin-bottom: 30px; 
+        }
+        h2 { 
+            color: #fff; 
+            border-bottom: 2px solid rgba(255,255,255,0.3); 
+            padding-bottom: 10px; 
+        }
+        .grid { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 20px; 
+        }
+        @media (max-width: 768px) { 
+            .grid { grid-template-columns: 1fr; } 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>✅ VERIFICACIÓN SISTEMA RESTAURADO</h1>
+        <p style="text-align: center; font-size: 18px; margin-bottom: 30px;">
+            🔄 Sistema restaurado desde backup funcional original
+        </p>
+        
+        <div class="grid">
+            <div class="panel">
+                <h2>🔍 Estado del Sistema</h2>
+                <div id="status-carga" class="status info">📡 Verificando carga...</div>
+                <div id="status-funciones" class="status info">🔧 Verificando funciones...</div>
+                <div id="status-actividades" class="status info">🎭 Verificando actividades...</div>
+                <div id="status-laboratorio" class="status info">🧪 Verificando laboratorio...</div>
+                
+                <button onclick="verificarSistemaCompleto()">🔍 VERIFICAR TODO</button>
+                <button onclick="probarLaboratorio()">🧪 PROBAR LABORATORIO</button>
+            </div>
+            
+            <div class="panel">
+                <h2>🎮 Pruebas Funcionales</h2>
+                <button onclick="probarActividad1()">🎭 Probar Actividad 1</button>
+                <button onclick="probarActividad2()">🏠 Probar Actividad 2</button>
+                <button onclick="probarActividad3()">👥 Probar Actividad 3</button>
+                <button onclick="probarActividad4()">📖 Probar Actividad 4</button>
+                <button onclick="limpiarLog()">🧹 Limpiar Log</button>
+            </div>
+        </div>
+        
+        <div class="panel">
+            <h2>📊 Log de Verificación</h2>
+            <div id="log" class="log">Sistema iniciando verificación...</div>
+        </div>
+    </div>
+
+    <script src="js/actividades-interactivas.js"></script>
+    
+    <script>
+        function log(mensaje) {
+            const logDiv = document.getElementById('log');
+            const tiempo = new Date().toLocaleTimeString();
+            logDiv.innerHTML += `[${tiempo}] ${mensaje}\n`;
+            logDiv.scrollTop = logDiv.scrollHeight;
+            console.log(mensaje);
+        }
+        
+        function updateStatus(id, tipo, mensaje) {
+            const elemento = document.getElementById(id);
+            elemento.className = `status ${tipo}`;
+            elemento.innerHTML = mensaje;
+        }
+
+        function verificarSistemaCompleto() {
+            log('🔍 === VERIFICACIÓN COMPLETA DEL SISTEMA RESTAURADO ===');
+            
+            // 1. Verificar carga
+            updateStatus('status-carga', 'ok', '✅ JavaScript cargado correctamente');
+            log('✅ Archivo JavaScript cargado desde backup');
+            
+            // 2. Verificar funciones críticas
+            const funcionesCriticas = {
+                'activarHerramientaMancha': window.activarHerramientaMancha,
+                'limpiarManchaPersonal': window.limpiarManchaPersonal,
+                'guardarManchaPersonal': window.guardarManchaPersonal,
+                'inicializarMiniSimulador': window.inicializarMiniSimulador,
+                'mostrarActividad': window.mostrarActividad,
+                'ACTIVIDADES_CONFIG': window.ACTIVIDADES_CONFIG,
+                'ActividadState': window.ActividadState
+            };
+            
+            let funcionesOK = 0;
+            let totalFunciones = Object.keys(funcionesCriticas).length;
+            
+            for (const [nombre, funcion] of Object.entries(funcionesCriticas)) {
+                if (funcion) {
+                    log(`✅ ${nombre}: DISPONIBLE (${typeof funcion})`);
+                    funcionesOK++;
+                } else {
+                    log(`❌ ${nombre}: FALTANTE`);
+                }
+            }
+            
+            if (funcionesOK === totalFunciones) {
+                updateStatus('status-funciones', 'ok', `✅ Todas las funciones OK (${funcionesOK}/${totalFunciones})`);
+            } else {
+                updateStatus('status-funciones', 'error', `❌ Funciones faltantes (${funcionesOK}/${totalFunciones})`);
+            }
+            
+            // 3. Verificar configuración de actividades
+            if (window.ACTIVIDADES_CONFIG) {
+                const actividades = Object.keys(window.ACTIVIDADES_CONFIG);
+                log(`✅ Actividades configuradas: ${actividades.join(', ')}`);
+                updateStatus('status-actividades', 'ok', `✅ ${actividades.length} actividades disponibles`);
+                
+                // Verificar cada actividad
+                actividades.forEach(actId => {
+                    const act = window.ACTIVIDADES_CONFIG[actId];
+                    log(`   📋 ${actId}: "${act.titulo}" - ${act.fases.length} fases`);
+                });
+            } else {
+                updateStatus('status-actividades', 'error', '❌ Configuración de actividades no encontrada');
+            }
+            
+            // 4. Verificar estado del laboratorio
+            if (window.ActividadState) {
+                log('✅ ActividadState inicializado correctamente');
+                updateStatus('status-laboratorio', 'ok', '✅ Estado del laboratorio OK');
+            } else {
+                updateStatus('status-laboratorio', 'error', '❌ Estado del laboratorio no inicializado');
+            }
+            
+            log('🎉 Verificación completa finalizada');
+        }
+
+        function probarLaboratorio() {
+            log('🧪 === PRUEBA DEL LABORATORIO ===');
+            
+            try {
+                // Simular carga de actividad 1
+                if (window.mostrarActividad) {
+                    log('🔧 Simulando carga de Actividad 1...');
+                    window.mostrarActividad(1);
+                    
+                    setTimeout(() => {
+                        // Verificar si se cargó el contenido
+                        const contenido = document.getElementById('fase-contenido');
+                        if (contenido && contenido.innerHTML.includes('Manchas')) {
+                            log('✅ Actividad 1 cargada correctamente');
+                            
+                            // Probar herramientas si están disponibles
+                            setTimeout(() => {
+                                const botonesHerramientas = document.querySelectorAll('.btn-herramienta');
+                                log(`🔧 Herramientas disponibles: ${botonesHerramientas.length}`);
+                                
+                                if (botonesHerramientas.length > 0) {
+                                    log('✅ Laboratorio de herramientas operativo');
+                                } else {
+                                    log('⚠️ Herramientas no encontradas (puede estar en fase inicial)');
+                                }
+                            }, 1000);
+                        } else {
+                            log('❌ Error cargando actividad 1');
+                        }
+                    }, 1500);
+                } else {
+                    log('❌ Función mostrarActividad no disponible');
+                }
+            } catch (error) {
+                log(`💥 Error en prueba del laboratorio: ${error.message}`);
+            }
+        }
+
+        function probarActividad1() {
+            log('🎭 Probando Actividad 1: Somos Manchas que se Mueven');
+            if (window.mostrarActividad) {
+                window.mostrarActividad(1);
+                log('✅ Actividad 1 iniciada');
+            } else {
+                log('❌ No se puede iniciar Actividad 1');
+            }
+        }
+
+        function probarActividad2() {
+            log('🏠 Probando Actividad 2: El Lugar que me Habita');
+            if (window.mostrarActividad) {
+                window.mostrarActividad(2);
+                log('✅ Actividad 2 iniciada');
+            } else {
+                log('❌ No se puede iniciar Actividad 2');
+            }
+        }
+
+        function probarActividad3() {
+            log('👥 Probando Actividad 3: Retrato Colectivo');
+            if (window.mostrarActividad) {
+                window.mostrarActividad(3);
+                log('✅ Actividad 3 iniciada');
+            } else {
+                log('❌ No se puede iniciar Actividad 3');
+            }
+        }
+
+        function probarActividad4() {
+            log('📖 Probando Actividad 4: Historias del Error');
+            if (window.mostrarActividad) {
+                window.mostrarActividad(4);
+                log('✅ Actividad 4 iniciada');
+            } else {
+                log('❌ No se puede iniciar Actividad 4');
+            }
+        }
+
+        function limpiarLog() {
+            document.getElementById('log').innerHTML = 'Log limpiado...\n';
+        }
+
+        // Auto-verificar cuando cargue
+        window.addEventListener('load', function() {
+            log('🚀 Sistema de verificación cargado');
+            setTimeout(() => {
+                verificarSistemaCompleto();
+            }, 1000);
+        });
+        
+        // Capturar errores
+        window.addEventListener('error', function(e) {
+            log(`💥 Error detectado: ${e.message} en ${e.filename}:${e.lineno}`);
+            updateStatus('status-carga', 'error', '❌ Error de JavaScript detectado');
+        });
+    </script>
+</body>
+</html>

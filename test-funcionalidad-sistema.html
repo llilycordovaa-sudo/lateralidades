@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧪 Prueba de Funcionalidad - Sistema Restaurado</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .test-result { 
+            padding: 1rem; 
+            margin: 0.5rem 0; 
+            border-radius: 0.5rem; 
+            font-family: monospace;
+        }
+        .test-pass { background-color: #d1fae5; color: #065f46; border: 1px solid #10b981; }
+        .test-fail { background-color: #fee2e2; color: #991b1b; border: 1px solid #ef4444; }
+        .test-pending { background-color: #fef3c7; color: #92400e; border: 1px solid #f59e0b; }
+    </style>
+</head>
+<body class="bg-gray-100 p-6">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6">🧪 Verificación de Funcionalidad del Sistema</h1>
+        
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+            <h2 class="text-xl font-semibold mb-4">📋 Resultados de Pruebas</h2>
+            <div id="test-results"></div>
+            
+            <button onclick="ejecutarPruebas()" class="mt-4 bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg">
+                🔄 Ejecutar Pruebas
+            </button>
+        </div>
+        
+        <!-- Contenedor para prueba de laboratorio -->
+        <div id="lab-content-container" class="bg-white rounded-lg shadow-lg p-6">
+            <h3 class="text-lg font-semibold mb-4">🔬 Área de Prueba del Laboratorio</h3>
+            <div id="activity-selection-container">
+                <p class="text-gray-600">Contenedor de selección de actividades</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts del sistema -->
+    <script src="js/laboratorio-original.js"></script>
+    <script src="js/simulador-mancha-avanzado.js"></script>
+    <script src="js/sistema-pinceles-avanzado.js"></script>
+    <script src="js/ui-pinceles-avanzada.js"></script>
+    <script src="js/actividades-interactivas.js"></script>
+
+    <script>
+        // Sistema de pruebas
+        const testResults = [];
+        
+        function addTestResult(name, status, message = '') {
+            const result = { name, status, message, timestamp: new Date().toLocaleTimeString() };
+            testResults.push(result);
+            
+            const container = document.getElementById('test-results');
+            const div = document.createElement('div');
+            div.className = `test-result test-${status}`;
+            
+            const statusIcon = status === 'pass' ? '✅' : status === 'fail' ? '❌' : '⏳';
+            div.innerHTML = `
+                <strong>${statusIcon} ${name}</strong> 
+                <span class="text-sm">[${result.timestamp}]</span>
+                ${message ? `<br><small>${message}</small>` : ''}
+            `;
+            
+            container.appendChild(div);
+        }
+
+        function ejecutarPruebas() {
+            // Limpiar resultados anteriores
+            document.getElementById('test-results').innerHTML = '';
+            testResults.length = 0;
+            
+            console.log('🧪 Iniciando pruebas del sistema...');
+            
+            // Prueba 1: Verificar carga de scripts
+            try {
+                addTestResult('Carga de Scripts', 'pending', 'Verificando scripts cargados...');
+                
+                if (typeof window.iniciarActividadInteractiva === 'function') {
+                    addTestResult('Script actividades-interactivas.js', 'pass', 'Función principal disponible');
+                } else {
+                    addTestResult('Script actividades-interactivas.js', 'fail', 'Función principal no encontrada');
+                }
+                
+                if (typeof window.ACTIVIDADES_CONFIG === 'object') {
+                    addTestResult('Configuración de Actividades', 'pass', `${Object.keys(window.ACTIVIDADES_CONFIG).length} actividades cargadas`);
+                } else {
+                    addTestResult('Configuración de Actividades', 'fail', 'ACTIVIDADES_CONFIG no disponible');
+                }
+                
+            } catch (error) {
+                addTestResult('Carga de Scripts', 'fail', error.message);
+            }
+
+            // Prueba 2: Verificar funciones de navegación
+            try {
+                if (typeof window.anteriorFaseActividad === 'function') {
+                    addTestResult('Función Botón Anterior', 'pass', 'Función anteriorFaseActividad disponible');
+                } else {
+                    addTestResult('Función Botón Anterior', 'fail', 'Función anteriorFaseActividad no encontrada');
+                }
+                
+                if (typeof window.siguienteFaseActividad === 'function') {
+                    addTestResult('Función Botón Siguiente', 'pass', 'Función siguienteFaseActividad disponible');
+                } else {
+                    addTestResult('Función Botón Siguiente', 'fail', 'Función siguienteFaseActividad no encontrada');
+                }
+                
+            } catch (error) {
+                addTestResult('Funciones de Navegación', 'fail', error.message);
+            }
+
+            // Prueba 3: Verificar contenedores DOM
+            try {
+                const labContainer = document.getElementById('lab-content-container');
+                if (labContainer) {
+                    addTestResult('Contenedor Principal', 'pass', 'lab-content-container encontrado');
+                } else {
+                    addTestResult('Contenedor Principal', 'fail', 'lab-content-container no encontrado');
+                }
+                
+                const activityContainer = document.getElementById('activity-selection-container');
+                if (activityContainer) {
+                    addTestResult('Contenedor de Actividades', 'pass', 'activity-selection-container encontrado');
+                } else {
+                    addTestResult('Contenedor de Actividades', 'fail', 'activity-selection-container no encontrado');
+                }
+                
+            } catch (error) {
+                addTestResult('Contenedores DOM', 'fail', error.message);
+            }
+
+            // Prueba 4: Verificar estado del sistema
+            try {
+                if (typeof window.ActividadState === 'object') {
+                    addTestResult('Estado del Sistema', 'pass', `Estado inicial: ${JSON.stringify(window.ActividadState)}`);
+                } else {
+                    addTestResult('Estado del Sistema', 'fail', 'ActividadState no disponible');
+                }
+                
+            } catch (error) {
+                addTestResult('Estado del Sistema', 'fail', error.message);
+            }
+
+            // Prueba 5: Probar inicialización de actividad
+            try {
+                if (window.ACTIVIDADES_CONFIG && Object.keys(window.ACTIVIDADES_CONFIG).length > 0) {
+                    const primeraActividad = Object.keys(window.ACTIVIDADES_CONFIG)[0];
+                    addTestResult('Prueba de Inicialización', 'pending', `Intentando iniciar actividad ${primeraActividad}...`);
+                    
+                    // Intentar inicializar la primera actividad
+                    window.iniciarActividadInteractiva(primeraActividad);
+                    
+                    setTimeout(() => {
+                        if (window.ActividadState.actividadActual === primeraActividad) {
+                            addTestResult('Inicialización de Actividad', 'pass', `Actividad ${primeraActividad} iniciada correctamente`);
+                        } else {
+                            addTestResult('Inicialización de Actividad', 'fail', 'La actividad no se inició correctamente');
+                        }
+                    }, 1000);
+                } else {
+                    addTestResult('Prueba de Inicialización', 'fail', 'No hay actividades disponibles para probar');
+                }
+                
+            } catch (error) {
+                addTestResult('Prueba de Inicialización', 'fail', error.message);
+            }
+
+            // Resumen final
+            setTimeout(() => {
+                const passCount = testResults.filter(r => r.status === 'pass').length;
+                const failCount = testResults.filter(r => r.status === 'fail').length;
+                const totalCount = testResults.filter(r => r.status !== 'pending').length;
+                
+                const summary = `${passCount}/${totalCount} pruebas exitosas`;
+                const summaryStatus = failCount === 0 ? 'pass' : failCount < passCount ? 'pending' : 'fail';
+                
+                addTestResult('RESUMEN FINAL', summaryStatus, summary);
+                
+                console.log('🧪 Pruebas completadas:', { pass: passCount, fail: failCount, total: totalCount });
+            }, 2000);
+        }
+
+        // Ejecutar pruebas automáticamente al cargar
+        window.addEventListener('load', () => {
+            setTimeout(ejecutarPruebas, 1000);
+        });
+    </script>
+</body>
+</html>

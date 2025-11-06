@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧪 TEST BOTONES LABORATORIO</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            padding: 20px; 
+            background: #0f0f23; 
+            color: white; 
+        }
+        .container { 
+            max-width: 1000px; 
+            margin: 0 auto; 
+        }
+        .test-panel { 
+            background: rgba(255,255,255,0.1); 
+            padding: 20px; 
+            margin: 15px 0; 
+            border-radius: 10px; 
+            border: 1px solid rgba(255,255,255,0.2); 
+        }
+        .actividad-btn { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            color: white; 
+            border: none; 
+            padding: 20px; 
+            border-radius: 10px; 
+            cursor: pointer; 
+            font-size: 16px; 
+            font-weight: bold; 
+            margin: 10px; 
+            transition: all 0.3s; 
+            min-width: 200px;
+            text-align: center;
+        }
+        .actividad-btn:hover { 
+            transform: translateY(-2px) scale(1.05); 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+        .debug { 
+            background: #000; 
+            color: #0f0; 
+            padding: 15px; 
+            font-family: monospace; 
+            font-size: 12px; 
+            border-radius: 8px; 
+            max-height: 400px; 
+            overflow-y: auto; 
+            margin: 15px 0; 
+        }
+        .error { color: #ff4444; }
+        .success { color: #44ff44; }
+        .warning { color: #ffaa44; }
+        .info { color: #4444ff; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 TEST: BOTONES LABORATORIO HABITANDO EL ERROR</h1>
+        
+        <div class="test-panel">
+            <h3>🎯 Tests de Funciones del Sistema</h3>
+            <button onclick="testSistema()" class="actividad-btn">🔍 TEST SISTEMA COMPLETO</button>
+            <button onclick="limpiarDebug()" class="actividad-btn">🧹 LIMPIAR DEBUG</button>
+        </div>
+        
+        <div class="test-panel">
+            <h3>📋 Botones de Actividades (Simulación Laboratorio)</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                <button onclick="mostrarActividad(1)" class="actividad-btn" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                    <div style="font-size: 2em;">🎲</div>
+                    <div>Actividad 1</div>
+                    <div style="font-size: 0.8em;">El Hacer del Azar</div>
+                </button>
+                
+                <button onclick="mostrarActividad(2)" class="actividad-btn" style="background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);">
+                    <div style="font-size: 2em;">🏠</div>
+                    <div>Actividad 2</div>
+                    <div style="font-size: 0.8em;">El Lugar que me Habita</div>
+                </button>
+                
+                <button onclick="mostrarActividad(3)" class="actividad-btn" style="background: linear-gradient(135deg, #00b894 0%, #00a085 100%);">
+                    <div style="font-size: 2em;">👥</div>
+                    <div>Actividad 3</div>
+                    <div style="font-size: 0.8em;">Retrato Colectivo</div>
+                </button>
+                
+                <button onclick="mostrarActividad(4)" class="actividad-btn" style="background: linear-gradient(135deg, #fd79a8 0%, #e84393 100%);">
+                    <div style="font-size: 2em;">🖼️</div>
+                    <div>Actividad 4</div>
+                    <div style="font-size: 0.8em;">Actividad Mancha</div>
+                </button>
+            </div>
+        </div>
+        
+        <div class="test-panel">
+            <h3>🔬 Área de Simulación de Laboratorio</h3>
+            <div id="lab-content-container" style="background: rgba(255,255,255,0.9); color: #333; padding: 20px; border-radius: 10px; min-height: 300px;">
+                <p style="text-align: center; color: #666; font-size: 18px;">
+                    🧪 Selecciona una actividad para comenzar la experiencia
+                </p>
+            </div>
+        </div>
+        
+        <div class="test-panel">
+            <h3>📊 Debug Console</h3>
+            <div id="debug" class="debug">Esperando por pruebas...</div>
+        </div>
+    </div>
+
+    <script src="js/actividades-interactivas.js"></script>
+    
+    <script>
+        function log(mensaje, tipo = 'info') {
+            const debug = document.getElementById('debug');
+            const tiempo = new Date().toLocaleTimeString();
+            let color = '#0f0';
+            if (tipo === 'error') color = '#ff4444';
+            if (tipo === 'warning') color = '#ffaa44';
+            if (tipo === 'success') color = '#44ff44';
+            if (tipo === 'info') color = '#4444ff';
+            
+            debug.innerHTML += `<span style="color: ${color}">[${tiempo}] ${mensaje}</span>\n`;
+            debug.scrollTop = debug.scrollHeight;
+            console.log(mensaje);
+        }
+        
+        function limpiarDebug() {
+            document.getElementById('debug').innerHTML = 'Debug limpiado...\n';
+        }
+        
+        function testSistema() {
+            log('🔍 === TESTING SISTEMA LABORATORIO ===', 'info');
+            
+            // Verificar si las funciones están disponibles
+            const funcionesCriticas = [
+                'ActividadState',
+                'ACTIVIDADES_CONFIG',
+                'mostrarActividad',
+                'iniciarActividadInteractiva',
+                'mostrarFaseActividad',
+                'siguienteFaseActividad'
+            ];
+            
+            let funcionesOK = 0;
+            funcionesCriticas.forEach(nombre => {
+                if (window[nombre]) {
+                    log(`✅ ${nombre}: DISPONIBLE (${typeof window[nombre]})`, 'success');
+                    funcionesOK++;
+                } else {
+                    log(`❌ ${nombre}: NO DISPONIBLE`, 'error');
+                }
+            });
+            
+            // Verificar estado
+            if (window.ActividadState) {
+                log(`📊 Estado: actividad=${window.ActividadState.actividadActual || 'ninguna'}, fase=${window.ActividadState.faseActual || 0}`, 'info');
+            }
+            
+            // Verificar configuración
+            if (window.ACTIVIDADES_CONFIG) {
+                log(`📋 Configuración: ${Object.keys(window.ACTIVIDADES_CONFIG).length} actividades disponibles`, 'info');
+            }
+            
+            // Resumen
+            log(`📈 RESUMEN: ${funcionesOK}/${funcionesCriticas.length} funciones disponibles`, funcionesOK === funcionesCriticas.length ? 'success' : 'warning');
+            
+            if (funcionesOK === funcionesCriticas.length) {
+                log('🎉 ¡SISTEMA LISTO! Prueba hacer click en las actividades.', 'success');
+            } else {
+                log('⚠️ Sistema con problemas. Algunas funciones no están disponibles.', 'warning');
+            }
+        }
+        
+        // Auto-test al cargar
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                log('🚀 Página de test laboratorio cargada', 'info');
+                testSistema();
+            }, 1000);
+        });
+        
+        // Capturar errores globales
+        window.addEventListener('error', function(e) {
+            log(`💥 ERROR GLOBAL: ${e.message} en línea ${e.lineno}`, 'error');
+        });
+        
+        // Interceptar clicks en botones de actividad
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.actividad-btn') && e.target.getAttribute('onclick')) {
+                const boton = e.target.closest('.actividad-btn');
+                const onclick = boton.getAttribute('onclick');
+                log(`🖱️ Click detectado en botón actividad`, 'info');
+                log(`   onclick: ${onclick}`, 'info');
+                log(`   texto: ${boton.textContent.trim().replace(/\s+/g, ' ')}`, 'info');
+            }
+        });
+        
+        // Observar cambios en el contenedor del laboratorio
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.type === 'childList' && mutation.target.id === 'lab-content-container') {
+                    log('📝 Contenido del laboratorio actualizado', 'success');
+                    
+                    // Buscar botones "Comenzar Aventura"
+                    const botones = mutation.target.querySelectorAll('button[onclick*="siguienteFaseActividad"]');
+                    if (botones.length > 0) {
+                        log(`✅ Se encontraron ${botones.length} botones "Comenzar Aventura"`, 'success');
+                        botones.forEach((btn, i) => {
+                            log(`   Botón ${i+1}: "${btn.textContent.trim()}" - onclick: ${btn.getAttribute('onclick')}`, 'info');
+                        });
+                    }
+                }
+            });
+        });
+        
+        observer.observe(document.getElementById('lab-content-container'), {
+            childList: true,
+            subtree: true
+        });
+    </script>
+</body>
+</html>

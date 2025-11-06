@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagnóstico Laboratorio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold text-center mb-8">🔧 Diagnóstico del Laboratorio</h1>
+        
+        <!-- Container del laboratorio -->
+        <div id="lab-content-container" class="bg-white rounded-xl shadow-lg p-8 min-h-96 mb-8">
+            <!-- Se llenará dinámicamente -->
+        </div>
+        
+        <!-- Panel de diagnóstico -->
+        <div class="bg-blue-50 rounded-xl p-6">
+            <h2 class="text-xl font-bold mb-4">📊 Estado del Sistema</h2>
+            <div id="debug-info" class="space-y-2 text-sm font-mono">
+                <!-- Se llenará con información de debug -->
+            </div>
+            
+            <div class="mt-6 space-x-4">
+                <button onclick="runDiagnostic()" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-bold">
+                    🔍 Ejecutar Diagnóstico
+                </button>
+                
+                <button onclick="testLaboratorio()" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg font-bold">
+                    🧪 Probar Laboratorio
+                </button>
+                
+                <button onclick="testActividad()" class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded-lg font-bold">
+                    🎯 Probar Actividad
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts en el mismo orden que el HTML principal -->
+    <script src="js/modelo-pedagogico.js"></script>
+    <script src="js/guia-didactica-fixed.js"></script>
+    <script src="js/resources.js"></script>
+    <script src="js/main-clean.js"></script>
+    <script src="js/laboratorio-original.js"></script>
+    <script src="js/simulador-mancha-avanzado.js"></script>
+    <script src="js/sistema-pinceles-avanzado.js"></script>
+    <script src="js/ui-pinceles-avanzada.js"></script>
+    <script src="js/actividades-interactivas.js"></script>
+
+    <script>
+        function addLog(message, type = 'info') {
+            const debugInfo = document.getElementById('debug-info');
+            const div = document.createElement('div');
+            const colors = {
+                info: 'text-blue-600',
+                success: 'text-green-600',
+                error: 'text-red-600',
+                warning: 'text-yellow-600'
+            };
+            div.className = colors[type] || colors.info;
+            div.textContent = message;
+            debugInfo.appendChild(div);
+            debugInfo.scrollTop = debugInfo.scrollHeight;
+        }
+
+        function runDiagnostic() {
+            const debugInfo = document.getElementById('debug-info');
+            debugInfo.innerHTML = '';
+            
+            addLog('🔍 Iniciando diagnóstico del sistema...', 'info');
+            
+            // Verificar container
+            const container = document.getElementById('lab-content-container');
+            addLog(`📦 Container lab-content-container: ${container ? 'ENCONTRADO' : 'FALTANTE'}`, container ? 'success' : 'error');
+            
+            // Verificar funciones principales
+            addLog(`🔧 initializeLaboratorioCreativo: ${typeof window.initializeLaboratorioCreativo}`, 
+                typeof window.initializeLaboratorioCreativo === 'function' ? 'success' : 'error');
+            
+            addLog(`🎨 iniciarActividadInteractiva: ${typeof window.iniciarActividadInteractiva}`, 
+                typeof window.iniciarActividadInteractiva === 'function' ? 'success' : 'error');
+            
+            addLog(`📚 ACTIVIDADES_CONFIG: ${typeof window.ACTIVIDADES_CONFIG}`, 
+                typeof window.ACTIVIDADES_CONFIG === 'object' ? 'success' : 'error');
+            
+            addLog(`🎭 ActividadState: ${typeof window.ActividadState}`, 
+                typeof window.ActividadState === 'object' ? 'success' : 'error');
+            
+            // Verificar clases
+            addLog(`🏗️ LaboratorioCreativoOriginal: ${typeof window.LaboratorioCreativoOriginal}`, 
+                typeof window.LaboratorioCreativoOriginal === 'function' ? 'success' : 'warning');
+            
+            addLog(`🖌️ SistemaAvanzadoPinceles: ${typeof window.SistemaAvanzadoPinceles}`, 
+                typeof window.SistemaAvanzadoPinceles === 'function' ? 'success' : 'warning');
+            
+            addLog(`🎨 UIAvanzadaPinceles: ${typeof window.UIAvanzadaPinceles}`, 
+                typeof window.UIAvanzadaPinceles === 'function' ? 'success' : 'warning');
+            
+            // Verificar actividades disponibles
+            if (window.ACTIVIDADES_CONFIG) {
+                const actividades = Object.keys(window.ACTIVIDADES_CONFIG);
+                addLog(`📋 Actividades disponibles: ${actividades.join(', ')}`, 'success');
+            }
+            
+            addLog('✅ Diagnóstico completado', 'success');
+        }
+
+        function testLaboratorio() {
+            addLog('🧪 Probando inicialización del laboratorio...', 'info');
+            
+            try {
+                if (typeof window.initializeLaboratorioCreativo === 'function') {
+                    window.initializeLaboratorioCreativo();
+                    addLog('✅ Laboratorio inicializado exitosamente', 'success');
+                } else {
+                    addLog('❌ initializeLaboratorioCreativo no disponible', 'error');
+                }
+            } catch (error) {
+                addLog(`❌ Error inicializando laboratorio: ${error.message}`, 'error');
+                console.error('Error completo:', error);
+            }
+        }
+
+        function testActividad() {
+            addLog('🎯 Probando inicialización de actividad...', 'info');
+            
+            try {
+                if (typeof window.iniciarActividadInteractiva === 'function') {
+                    window.iniciarActividadInteractiva('actividad1');
+                    addLog('✅ Actividad iniciada exitosamente', 'success');
+                } else {
+                    addLog('❌ iniciarActividadInteractiva no disponible', 'error');
+                }
+            } catch (error) {
+                addLog(`❌ Error iniciando actividad: ${error.message}`, 'error');
+                console.error('Error completo:', error);
+            }
+        }
+
+        // Ejecutar diagnóstico automático al cargar
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                addLog('🚀 Página cargada, ejecutando diagnóstico automático...', 'info');
+                runDiagnostic();
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

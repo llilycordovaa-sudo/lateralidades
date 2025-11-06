@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TEST MÍNIMO</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #333; color: white; }
+        .result { padding: 20px; margin: 10px 0; border-radius: 10px; }
+        .ok { background: #4CAF50; }
+        .error { background: #f44336; }
+        pre { background: #000; color: #0f0; padding: 15px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h1>🔬 TEST MÍNIMO DE CARGA</h1>
+    
+    <div id="resultado" class="result error">
+        ❌ Esperando carga del archivo...
+    </div>
+    
+    <h3>📊 Resultados detallados:</h3>
+    <pre id="detalles">Iniciando verificación...</pre>
+    
+    <script>
+        function actualizar(mensaje, tipo) {
+            const resultado = document.getElementById('resultado');
+            const detalles = document.getElementById('detalles');
+            
+            resultado.className = `result ${tipo}`;
+            resultado.innerHTML = mensaje;
+            
+            detalles.innerHTML += new Date().toLocaleTimeString() + ' - ' + mensaje.replace(/[✅❌⚠️]/g, '') + '\n';
+        }
+        
+        // Verificar cada segundo
+        let intentos = 0;
+        const verificar = setInterval(() => {
+            intentos++;
+            
+            if (window.ActividadState && window.ACTIVIDADES_CONFIG) {
+                actualizar('✅ ARCHIVO CARGADO CORRECTAMENTE', 'ok');
+                actualizar(`✅ ActividadState: ${typeof window.ActividadState}`, 'ok');
+                actualizar(`✅ ACTIVIDADES_CONFIG: ${Object.keys(window.ACTIVIDADES_CONFIG).length} actividades`, 'ok');
+                
+                // Verificar funciones
+                const funciones = [
+                    'iniciarActividadInteractiva',
+                    'mostrarActividad', 
+                    'activarHerramientaMancha'
+                ];
+                
+                let funcionesOK = 0;
+                funciones.forEach(func => {
+                    if (window[func]) {
+                        actualizar(`✅ ${func}: disponible`, 'ok');
+                        funcionesOK++;
+                    } else {
+                        actualizar(`❌ ${func}: NO disponible`, 'error');
+                    }
+                });
+                
+                actualizar(`📊 RESUMEN: ${funcionesOK}/${funciones.length} funciones disponibles`, funcionesOK === funciones.length ? 'ok' : 'error');
+                
+                clearInterval(verificar);
+            } else if (intentos > 10) {
+                actualizar('❌ TIMEOUT: Archivo no se cargó en 10 segundos', 'error');
+                actualizar(`❌ ActividadState: ${typeof window.ActividadState}`, 'error');
+                actualizar(`❌ ACTIVIDADES_CONFIG: ${typeof window.ACTIVIDADES_CONFIG}`, 'error');
+                clearInterval(verificar);
+            } else {
+                actualizar(`⏳ Esperando... intento ${intentos}/10`, 'error');
+            }
+        }, 1000);
+    </script>
+    
+    <script src="js/actividades-interactivas.js"></script>
+</body>
+</html>

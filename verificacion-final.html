@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✅ VERIFICACIÓN SISTEMA REPARADO</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            padding: 20px; 
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%); 
+            color: white; 
+        }
+        .container { 
+            max-width: 800px; 
+            margin: 0 auto; 
+            background: rgba(255,255,255,0.1); 
+            padding: 30px; 
+            border-radius: 15px; 
+            backdrop-filter: blur(10px); 
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+        .status { 
+            padding: 15px; 
+            margin: 10px 0; 
+            border-radius: 10px; 
+            font-weight: bold; 
+            font-size: 16px;
+        }
+        .ok { 
+            background: rgba(76, 175, 80, 0.4); 
+            border: 2px solid #4CAF50; 
+            color: #fff;
+        }
+        .error { 
+            background: rgba(244, 67, 54, 0.4); 
+            border: 2px solid #f44336; 
+            color: #fff;
+        }
+        button { 
+            background: #fff; 
+            color: #4CAF50; 
+            border: 2px solid #4CAF50; 
+            padding: 15px 30px; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-size: 16px; 
+            font-weight: bold; 
+            margin: 10px; 
+            transition: all 0.3s; 
+        }
+        button:hover { 
+            background: #4CAF50; 
+            color: white; 
+            transform: translateY(-2px); 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        h1 { 
+            text-align: center; 
+            font-size: 2.5em; 
+            margin-bottom: 30px; 
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .resultado { 
+            text-align: center; 
+            font-size: 1.2em; 
+            margin: 30px 0; 
+        }
+        .funciones-lista {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .funcion-item {
+            background: rgba(255,255,255,0.1);
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>✅ SISTEMA REPARADO</h1>
+        
+        <div class="resultado">
+            <div id="resultado-final" class="status error">
+                🔄 Verificando sistema reparado...
+            </div>
+        </div>
+        
+        <div style="text-align: center;">
+            <button onclick="verificarTodo()">🔍 VERIFICAR SISTEMA COMPLETO</button>
+            <button onclick="window.open('index.html', '_blank')">🚀 ABRIR PÁGINA PRINCIPAL</button>
+        </div>
+        
+        <h3>📊 Estado de las Funciones:</h3>
+        <div id="funciones-status" class="funciones-lista">
+            <!-- Se llenará dinámicamente -->
+        </div>
+        
+        <h3>🎮 Actividades Disponibles:</h3>
+        <div id="actividades-status">
+            <!-- Se llenará dinámicamente -->
+        </div>
+    </div>
+
+    <script src="js/actividades-interactivas.js"></script>
+    
+    <script>
+        function verificarTodo() {
+            console.log('🔍 Verificando sistema completo...');
+            
+            // Lista de funciones críticas
+            const funcionesCriticas = [
+                'ActividadState',
+                'MeditacionState',
+                'ACTIVIDADES_CONFIG',
+                'mostrarActividad',
+                'iniciarActividadInteractiva',
+                'mostrarFaseActividad',
+                'siguienteFaseActividad',
+                'activarHerramientaMancha',
+                'limpiarManchaPersonal',
+                'guardarManchaPersonal',
+                'inicializarMiniSimulador',
+                'mostrarNotificacion'
+            ];
+            
+            let funcionesOK = 0;
+            let total = funcionesCriticas.length;
+            
+            // Verificar cada función
+            const funcionesContainer = document.getElementById('funciones-status');
+            funcionesContainer.innerHTML = '';
+            
+            funcionesCriticas.forEach(nombre => {
+                const item = document.createElement('div');
+                item.className = 'funcion-item';
+                
+                if (window[nombre]) {
+                    item.style.background = 'rgba(76, 175, 80, 0.3)';
+                    item.innerHTML = `✅ ${nombre}`;
+                    funcionesOK++;
+                } else {
+                    item.style.background = 'rgba(244, 67, 54, 0.3)';
+                    item.innerHTML = `❌ ${nombre}`;
+                }
+                
+                funcionesContainer.appendChild(item);
+            });
+            
+            // Verificar actividades
+            const actividadesContainer = document.getElementById('actividades-status');
+            if (window.ACTIVIDADES_CONFIG) {
+                const actividades = Object.keys(window.ACTIVIDADES_CONFIG);
+                actividadesContainer.innerHTML = actividades.map(actId => {
+                    const act = window.ACTIVIDADES_CONFIG[actId];
+                    return `<div class="status ok">✅ ${actId}: "${act.titulo}" - ${act.fases.length} fases</div>`;
+                }).join('');
+            } else {
+                actividadesContainer.innerHTML = '<div class="status error">❌ No hay actividades configuradas</div>';
+            }
+            
+            // Resultado final
+            const resultadoFinal = document.getElementById('resultado-final');
+            if (funcionesOK === total) {
+                resultadoFinal.className = 'status ok';
+                resultadoFinal.innerHTML = `🎉 SISTEMA COMPLETAMENTE FUNCIONAL<br>✅ ${funcionesOK}/${total} funciones disponibles<br>🚀 ¡Listo para usar!`;
+            } else {
+                resultadoFinal.className = 'status error';
+                resultadoFinal.innerHTML = `⚠️ Sistema parcialmente funcional<br>❌ ${funcionesOK}/${total} funciones disponibles<br>🔧 Requiere atención`;
+            }
+        }
+        
+        // Auto-verificar cuando cargue
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                verificarTodo();
+            }, 1000);
+        });
+        
+        // Capturar errores
+        window.addEventListener('error', function(e) {
+            console.error('Error detectado:', e.message);
+            document.getElementById('resultado-final').innerHTML = `💥 ERROR: ${e.message}`;
+            document.getElementById('resultado-final').className = 'status error';
+        });
+    </script>
+</body>
+</html>

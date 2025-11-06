@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔧 TEST SIMPLE - DEBUGGING</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            padding: 20px; 
+            background: #2c3e50; 
+            color: white; 
+        }
+        .container { 
+            max-width: 900px; 
+            margin: 0 auto; 
+        }
+        .panel { 
+            background: rgba(255,255,255,0.1); 
+            padding: 20px; 
+            margin: 15px 0; 
+            border-radius: 10px; 
+        }
+        .console-output { 
+            background: #000; 
+            color: #0f0; 
+            padding: 15px; 
+            font-family: monospace; 
+            font-size: 12px; 
+            border-radius: 5px; 
+            max-height: 500px; 
+            overflow-y: auto; 
+            white-space: pre-wrap;
+        }
+        button { 
+            background: #e74c3c; 
+            color: white; 
+            border: none; 
+            padding: 15px 30px; 
+            border-radius: 5px; 
+            margin: 10px; 
+            cursor: pointer; 
+            font-size: 16px; 
+            font-weight: bold;
+        }
+        button:hover { 
+            background: #c0392b; 
+        }
+        .success { background: #27ae60; }
+        .success:hover { background: #229954; }
+        h1 { text-align: center; margin-bottom: 30px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 DEBUG SIMPLE - VERIFICACIÓN DE CARGA</h1>
+        
+        <div class="panel">
+            <h3>🎯 Control Manual</h3>
+            <button onclick="verificarCarga()">🔍 VERIFICAR CARGA</button>
+            <button onclick="verificarFunciones()" class="success">⚙️ VERIFICAR FUNCIONES</button>
+            <button onclick="testRapido()">🚀 TEST RÁPIDO</button>
+            <button onclick="limpiarConsola()">🧹 LIMPIAR</button>
+        </div>
+        
+        <div class="panel">
+            <h3>📊 Salida de Console</h3>
+            <div id="console-output" class="console-output">Esperando comandos...</div>
+        </div>
+        
+        <!-- Área de prueba mínima -->
+        <div id="fase-contenido" style="display: none;"></div>
+    </div>
+
+    <script>
+        // Capturar console.log
+        let originalLog = console.log;
+        let logOutput = '';
+        
+        console.log = function(...args) {
+            originalLog.apply(console, args);
+            logOutput += args.join(' ') + '\n';
+            updateConsoleOutput();
+        };
+        
+        function updateConsoleOutput() {
+            document.getElementById('console-output').textContent = logOutput;
+            document.getElementById('console-output').scrollTop = document.getElementById('console-output').scrollHeight;
+        }
+        
+        function limpiarConsola() {
+            logOutput = '';
+            updateConsoleOutput();
+            console.log('🧹 Consola limpiada');
+        }
+        
+        function verificarCarga() {
+            console.log('🔍 === VERIFICANDO CARGA DEL ARCHIVO ===');
+            
+            // Verificar si el script se está cargando
+            const scripts = document.querySelectorAll('script[src*="actividades-interactivas"]');
+            console.log(`📄 Scripts encontrados: ${scripts.length}`);
+            
+            scripts.forEach((script, index) => {
+                console.log(`   Script ${index + 1}: ${script.src}`);
+                console.log(`   Estado: ${script.readyState || 'cargando'}`);
+            });
+            
+            console.log('✅ Verificación de carga completada');
+        }
+        
+        function verificarFunciones() {
+            console.log('⚙️ === VERIFICANDO FUNCIONES ===');
+            
+            const funcionesEsperadas = [
+                'ActividadState',
+                'MeditacionState', 
+                'ACTIVIDADES_CONFIG',
+                'iniciarActividadInteractiva',
+                'mostrarActividad',
+                'siguienteFaseActividad',
+                'mostrarFaseActividad',
+                'activarHerramientaMancha',
+                'limpiarManchaPersonal',
+                'guardarManchaPersonal',
+                'inicializarMiniSimulador'
+            ];
+            
+            let disponibles = 0;
+            let total = funcionesEsperadas.length;
+            
+            funcionesEsperadas.forEach(nombre => {
+                if (window[nombre]) {
+                    console.log(`✅ ${nombre}: ${typeof window[nombre]} - DISPONIBLE`);
+                    disponibles++;
+                } else {
+                    console.log(`❌ ${nombre}: NO DISPONIBLE`);
+                }
+            });
+            
+            console.log(`📊 RESULTADO: ${disponibles}/${total} funciones disponibles`);
+            
+            if (disponibles === total) {
+                console.log('🎉 ¡TODAS LAS FUNCIONES ESTÁN DISPONIBLES!');
+            } else {
+                console.log('⚠️ Faltan funciones por cargar');
+            }
+        }
+        
+        function testRapido() {
+            console.log('🚀 === TEST RÁPIDO ===');
+            
+            try {
+                // Test 1: Verificar ActividadState
+                if (window.ActividadState) {
+                    console.log('✅ ActividadState disponible');
+                    console.log(`   Estado actual: ${window.ActividadState.actividadActual}`);
+                } else {
+                    console.log('❌ ActividadState NO disponible');
+                }
+                
+                // Test 2: Verificar ACTIVIDADES_CONFIG
+                if (window.ACTIVIDADES_CONFIG) {
+                    const actividades = Object.keys(window.ACTIVIDADES_CONFIG);
+                    console.log(`✅ ACTIVIDADES_CONFIG disponible con ${actividades.length} actividades`);
+                    console.log(`   Actividades: ${actividades.join(', ')}`);
+                } else {
+                    console.log('❌ ACTIVIDADES_CONFIG NO disponible');
+                }
+                
+                // Test 3: Verificar mostrarActividad
+                if (window.mostrarActividad) {
+                    console.log('✅ mostrarActividad disponible - probando...');
+                    // NO ejecutar, solo verificar que existe
+                    console.log('   Función lista para usar');
+                } else {
+                    console.log('❌ mostrarActividad NO disponible');
+                }
+                
+                console.log('🎉 Test rápido completado');
+                
+            } catch (error) {
+                console.log(`💥 Error en test rápido: ${error.message}`);
+            }
+        }
+        
+        // Capturar errores globales
+        window.addEventListener('error', function(e) {
+            console.log(`💥 ERROR GLOBAL: ${e.message}`);
+            console.log(`   Archivo: ${e.filename}`);
+            console.log(`   Línea: ${e.lineno}`);
+        });
+        
+        // Auto-inicializar
+        window.addEventListener('load', function() {
+            console.log('🚀 Página cargada, iniciando verificación automática...');
+            setTimeout(() => {
+                verificarCarga();
+                setTimeout(() => {
+                    verificarFunciones();
+                }, 1000);
+            }, 500);
+        });
+    </script>
+    
+    <!-- Cargar el archivo DESPUÉS de que todo esté listo -->
+    <script src="js/actividades-interactivas.js"></script>
+</body>
+</html>

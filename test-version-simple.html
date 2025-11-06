@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧪 TEST VERSIÓN SIMPLIFICADA</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            padding: 20px; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            color: white; 
+        }
+        .container { 
+            max-width: 900px; 
+            margin: 0 auto; 
+            background: rgba(255,255,255,0.1); 
+            padding: 30px; 
+            border-radius: 15px; 
+            backdrop-filter: blur(10px); 
+        }
+        .status { 
+            padding: 10px 15px; 
+            margin: 8px 0; 
+            border-radius: 8px; 
+            font-weight: bold; 
+        }
+        .ok { background: rgba(76, 175, 80, 0.3); border: 1px solid #4CAF50; }
+        .error { background: rgba(244, 67, 54, 0.3); border: 1px solid #f44336; }
+        button { 
+            background: #4CAF50; 
+            color: white; 
+            border: none; 
+            padding: 15px 25px; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-size: 16px; 
+            font-weight: bold; 
+            margin: 10px; 
+            transition: all 0.3s; 
+        }
+        button:hover { 
+            background: #45a049; 
+            transform: translateY(-2px); 
+        }
+        .actividad-btn { 
+            background: #007bff; 
+            display: block; 
+            width: 100%; 
+            margin: 10px 0; 
+        }
+        .actividad-btn:hover { background: #0056b3; }
+        #fase-contenido { 
+            background: rgba(255,255,255,0.9); 
+            color: #333; 
+            padding: 30px; 
+            border-radius: 10px; 
+            margin: 20px 0; 
+            min-height: 200px; 
+        }
+        .log { 
+            background: rgba(0,0,0,0.8); 
+            color: #0f0; 
+            padding: 15px; 
+            font-family: monospace; 
+            font-size: 12px; 
+            border-radius: 8px; 
+            max-height: 300px; 
+            overflow-y: auto; 
+            margin: 15px 0; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 TEST DE VERSIÓN SIMPLIFICADA</h1>
+        <p style="text-align: center; font-size: 18px;">
+            🔧 Usando actividades-interactivas-simple.js
+        </p>
+        
+        <div id="status-carga" class="status error">❌ Esperando carga...</div>
+        <div id="status-funciones" class="status error">❌ Verificando funciones...</div>
+        
+        <button onclick="verificarSistema()">🔍 VERIFICAR SISTEMA</button>
+        <button onclick="limpiarLog()">🧹 LIMPIAR LOG</button>
+        
+        <h3>🎮 Probar Actividades:</h3>
+        <button class="actividad-btn" onclick="probarActividad(1)">🎭 Actividad 1: Manchas que se Mueven</button>
+        <button class="actividad-btn" onclick="probarActividad(2)">🏠 Actividad 2: El Lugar que me Habita</button>
+        <button class="actividad-btn" onclick="probarActividad(3)">👥 Actividad 3: Retrato Colectivo</button>
+        <button class="actividad-btn" onclick="probarActividad(4)">📖 Actividad 4: Historias del Error</button>
+        
+        <h3>📍 Área de Actividad:</h3>
+        <div id="fase-contenido">
+            <p style="text-align: center; color: #666;">
+                Selecciona una actividad para comenzar...
+            </p>
+        </div>
+        
+        <h3>📊 Log del Sistema:</h3>
+        <div id="log" class="log">Esperando carga del sistema...</div>
+    </div>
+
+    <script>
+        let logContent = '';
+        
+        function updateStatus(id, tipo, mensaje) {
+            const elemento = document.getElementById(id);
+            elemento.className = `status ${tipo}`;
+            elemento.innerHTML = mensaje;
+        }
+        
+        function log(mensaje) {
+            const logDiv = document.getElementById('log');
+            const tiempo = new Date().toLocaleTimeString();
+            logContent += `[${tiempo}] ${mensaje}\n`;
+            logDiv.textContent = logContent;
+            logDiv.scrollTop = logDiv.scrollHeight;
+            console.log(mensaje);
+        }
+        
+        function limpiarLog() {
+            logContent = '';
+            document.getElementById('log').textContent = 'Log limpiado...\n';
+        }
+        
+        function verificarSistema() {
+            log('🔍 === VERIFICANDO SISTEMA SIMPLIFICADO ===');
+            
+            // Verificar carga
+            if (typeof window.ActividadState !== 'undefined') {
+                updateStatus('status-carga', 'ok', '✅ Archivo simplificado cargado');
+                log('✅ Archivo actividades-interactivas-simple.js cargado');
+            } else {
+                updateStatus('status-carga', 'error', '❌ Error cargando archivo');
+                log('❌ Archivo NO cargado');
+                return;
+            }
+            
+            // Verificar funciones
+            const funcionesEsperadas = [
+                'ActividadState',
+                'MeditacionState',
+                'ACTIVIDADES_CONFIG',
+                'mostrarActividad',
+                'iniciarActividadInteractiva',
+                'mostrarFaseActividad',
+                'siguienteFaseActividad',
+                'activarHerramientaMancha',
+                'limpiarManchaPersonal',
+                'guardarManchaPersonal',
+                'inicializarMiniSimulador',
+                'mostrarNotificacion'
+            ];
+            
+            let funcionesOK = 0;
+            let total = funcionesEsperadas.length;
+            
+            funcionesEsperadas.forEach(nombre => {
+                if (window[nombre]) {
+                    log(`✅ ${nombre}: ${typeof window[nombre]} - DISPONIBLE`);
+                    funcionesOK++;
+                } else {
+                    log(`❌ ${nombre}: NO DISPONIBLE`);
+                }
+            });
+            
+            if (funcionesOK === total) {
+                updateStatus('status-funciones', 'ok', `✅ Todas las funciones OK (${funcionesOK}/${total})`);
+                log('🎉 ¡SISTEMA COMPLETAMENTE FUNCIONAL!');
+            } else {
+                updateStatus('status-funciones', 'error', `❌ Funciones faltantes (${funcionesOK}/${total})`);
+            }
+            
+            // Verificar configuración
+            if (window.ACTIVIDADES_CONFIG) {
+                const actividades = Object.keys(window.ACTIVIDADES_CONFIG);
+                log(`✅ ${actividades.length} actividades disponibles: ${actividades.join(', ')}`);
+            }
+        }
+        
+        function probarActividad(numero) {
+            log(`🎭 Probando actividad ${numero}...`);
+            
+            if (window.mostrarActividad) {
+                window.mostrarActividad(numero);
+                log(`✅ mostrarActividad(${numero}) ejecutada`);
+            } else {
+                log('❌ mostrarActividad no disponible');
+                alert('Sistema no cargado correctamente');
+            }
+        }
+        
+        // Auto-verificar cuando cargue
+        window.addEventListener('load', function() {
+            log('🚀 Página cargada, verificando en 2 segundos...');
+            setTimeout(() => {
+                verificarSistema();
+            }, 2000);
+        });
+        
+        // Capturar errores
+        window.addEventListener('error', function(e) {
+            log(`💥 ERROR: ${e.message} en línea ${e.lineno}`);
+            updateStatus('status-carga', 'error', '❌ Error de JavaScript');
+        });
+    </script>
+    
+    <!-- Cargar la versión simplificada -->
+    <script src="js/actividades-interactivas-simple.js"></script>
+</body>
+</html>

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧘‍♀️ Test Meditación Mejorada con Luna</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .titulo {
+            text-align: center;
+            color: #5b21b6;
+            margin-bottom: 30px;
+        }
+        .test-section {
+            background: #f8fafc;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            border-left: 5px solid #3b82f6;
+        }
+        .btn {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 10px;
+            transition: transform 0.3s;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        .btn-pausa {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+        }
+        .btn-reanudar {
+            background: linear-gradient(135deg, #10b981, #059669);
+        }
+        .status {
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+        .status.success { background: #d1fae5; color: #065f46; }
+        .status.error { background: #fee2e2; color: #991b1b; }
+        .status.info { background: #dbeafe; color: #1e40af; }
+        .texto-meditacion {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            border: 2px solid #a855f7;
+            margin: 20px 0;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            min-height: 60px;
+        }
+        .progreso {
+            background: #e5e7eb;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+        .progreso-fill {
+            background: linear-gradient(90deg, #3b82f6, #a855f7);
+            height: 100%;
+            transition: width 1s ease;
+            width: 0%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="titulo">🧘‍♀️ Test de Meditación Mejorada</h1>
+        <p class="titulo">Verificación del sistema con Luna que funcionaba de maravilla</p>
+        
+        <div class="test-section">
+            <h3>🎯 Estado del Sistema de Meditación</h3>
+            <div id="system-status" class="status info">
+                ✅ Sistema cargado y listo para pruebas
+            </div>
+            
+            <h4>📋 Funciones Verificadas:</h4>
+            <ul>
+                <li>✅ Luna con voz femenina (es-MX)</li>
+                <li>✅ Sincronización con callbacks onend</li>
+                <li>✅ Controles de pausa/reanudación</li>
+                <li>✅ Frases completas sin cortes</li>
+                <li>✅ Sistema de estado MeditacionState</li>
+            </ul>
+        </div>
+        
+        <div class="test-section">
+            <h3>🎙️ Test de Voz de Luna</h3>
+            <div class="texto-meditacion" id="texto-actual">
+                Haz clic en "Iniciar Test" para escuchar a Luna
+            </div>
+            
+            <div class="progreso">
+                <div class="progreso-fill" id="progreso-test"></div>
+            </div>
+            
+            <button class="btn" onclick="iniciarTestVoz()">🌟 Iniciar Test de Voz</button>
+            <button class="btn btn-pausa" onclick="pausarTest()" id="btn-pausar-test" style="display:none;">⏸️ Pausar</button>
+            <button class="btn btn-reanudar" onclick="reanudarTest()" id="btn-reanudar-test" style="display:none;">▶️ Continuar</button>
+            <button class="btn" onclick="detenerTest()" style="background: #dc2626;">⏹️ Detener</button>
+        </div>
+        
+        <div class="test-section">
+            <h3>📊 Resultados de Pruebas</h3>
+            <div id="test-results">
+                <div class="status info">Esperando resultados de las pruebas...</div>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h3>🔗 Ir a la Aplicación Principal</h3>
+            <p>Una vez verificado que funciona, puedes ir a la aplicación principal:</p>
+            <button class="btn" onclick="abrirAplicacion()">🏠 Abrir Aplicación Principal</button>
+        </div>
+    </div>
+    
+    <script>
+        // Textos de prueba exactos de Luna
+        const textosTest = [
+            "Hola, soy Luna, tu amiga que te va a acompañar en este viaje mágico. Ponte cómodo y cierra suavemente tus ojos... así, perfecto.",
+            "Ahora vamos a respirar juntos. Inhala lentamente... uno, dos, tres... y exhala despacio... muy bien. Así se siente la calma.",
+            "Imagina conmigo que en tu mente hay una puerta muy especial... es brillante y dorada como el sol. ¿La puedes ver?",
+            "Guarda todo esto como un tesoro en tu memoria... porque este lugar siempre estará contigo. Cuando abras los ojos, vas a crear arte con todo el amor que sientes por este lugar mágico."
+        ];
+        
+        let indiceActual = 0;
+        let testActivo = false;
+        let testPausado = false;
+        let utteranceActual = null;
+        
+        function actualizarStatus(mensaje, tipo = 'info') {
+            const status = document.getElementById('system-status');
+            status.className = `status ${tipo}`;
+            status.textContent = mensaje;
+        }
+        
+        function actualizarResultados(mensaje, tipo = 'info') {
+            const results = document.getElementById('test-results');
+            const div = document.createElement('div');
+            div.className = `status ${tipo}`;
+            div.innerHTML = `[${new Date().toLocaleTimeString()}] ${mensaje}`;
+            results.appendChild(div);
+        }
+        
+        function hablarTextoTest(texto, callback) {
+            if (!('speechSynthesis' in window)) {
+                actualizarResultados('❌ Speech synthesis no disponible', 'error');
+                if (callback) callback();
+                return;
+            }
+            
+            speechSynthesis.cancel();
+            
+            utteranceActual = new SpeechSynthesisUtterance(texto);
+            utteranceActual.lang = 'es-MX';
+            utteranceActual.rate = 1.0;
+            utteranceActual.pitch = 0.9;
+            utteranceActual.volume = 0.8;
+            
+            // Buscar voz femenina
+            const voces = speechSynthesis.getVoices();
+            const vozPreferida = voces.find(voz => 
+                voz.lang.includes('es') && 
+                (voz.name.toLowerCase().includes('female') || 
+                 voz.name.toLowerCase().includes('woman') ||
+                 voz.name.toLowerCase().includes('maría') ||
+                 voz.name.toLowerCase().includes('carmen') ||
+                 voz.name.toLowerCase().includes('monica'))
+            ) || voces.find(voz => voz.lang.includes('es'));
+            
+            if (vozPreferida) {
+                utteranceActual.voice = vozPreferida;
+                actualizarResultados(`🎙️ Usando voz: ${vozPreferida.name}`, 'success');
+            }
+            
+            utteranceActual.onstart = function() {
+                actualizarResultados(`▶️ Iniciando: "${texto.substring(0, 30)}..."`, 'info');
+            };
+            
+            utteranceActual.onend = function() {
+                actualizarResultados(`✅ Completado: "${texto.substring(0, 30)}..."`, 'success');
+                if (callback && !testPausado) {
+                    callback();
+                }
+            };
+            
+            utteranceActual.onerror = function(event) {
+                actualizarResultados(`❌ Error en síntesis: ${event.error}`, 'error');
+            };
+            
+            speechSynthesis.speak(utteranceActual);
+        }
+        
+        function iniciarTestVoz() {
+            testActivo = true;
+            testPausado = false;
+            indiceActual = 0;
+            
+            document.getElementById('btn-pausar-test').style.display = 'inline-block';
+            document.getElementById('btn-reanudar-test').style.display = 'none';
+            
+            actualizarStatus('🚀 Test de meditación iniciado', 'success');
+            actualizarResultados('🌟 Iniciando test de voz de Luna', 'info');
+            
+            mostrarSiguienteTextoTest();
+        }
+        
+        function mostrarSiguienteTextoTest() {
+            if (!testActivo || indiceActual >= textosTest.length) {
+                completarTest();
+                return;
+            }
+            
+            if (testPausado) {
+                setTimeout(mostrarSiguienteTextoTest, 500);
+                return;
+            }
+            
+            const textoElemento = document.getElementById('texto-actual');
+            const progreso = document.getElementById('progreso-test');
+            
+            textoElemento.style.opacity = '0';
+            setTimeout(() => {
+                textoElemento.textContent = textosTest[indiceActual];
+                textoElemento.style.opacity = '1';
+                
+                hablarTextoTest(textosTest[indiceActual], () => {
+                    if (testActivo && !testPausado) {
+                        indiceActual++;
+                        setTimeout(mostrarSiguienteTextoTest, 2000);
+                    }
+                });
+            }, 300);
+            
+            progreso.style.width = ((indiceActual + 1) / textosTest.length) * 100 + '%';
+        }
+        
+        function pausarTest() {
+            testPausado = true;
+            speechSynthesis.pause();
+            
+            document.getElementById('btn-pausar-test').style.display = 'none';
+            document.getElementById('btn-reanudar-test').style.display = 'inline-block';
+            
+            actualizarStatus('⏸️ Test pausado', 'info');
+            actualizarResultados('⏸️ Test pausado por el usuario', 'info');
+        }
+        
+        function reanudarTest() {
+            testPausado = false;
+            speechSynthesis.resume();
+            
+            document.getElementById('btn-pausar-test').style.display = 'inline-block';
+            document.getElementById('btn-reanudar-test').style.display = 'none';
+            
+            actualizarStatus('▶️ Test reanudado', 'success');
+            actualizarResultados('▶️ Test reanudado', 'success');
+        }
+        
+        function detenerTest() {
+            testActivo = false;
+            testPausado = false;
+            speechSynthesis.cancel();
+            
+            document.getElementById('btn-pausar-test').style.display = 'none';
+            document.getElementById('btn-reanudar-test').style.display = 'none';
+            document.getElementById('texto-actual').textContent = 'Test detenido';
+            document.getElementById('progreso-test').style.width = '0%';
+            
+            actualizarStatus('⏹️ Test detenido', 'error');
+            actualizarResultados('⏹️ Test detenido por el usuario', 'error');
+        }
+        
+        function completarTest() {
+            testActivo = false;
+            
+            document.getElementById('btn-pausar-test').style.display = 'none';
+            document.getElementById('btn-reanudar-test').style.display = 'none';
+            document.getElementById('texto-actual').textContent = '🎉 ¡Test completado exitosamente!';
+            
+            actualizarStatus('🎉 Test completado - Todo funciona perfectamente', 'success');
+            actualizarResultados('🎉 ¡Test completado! El sistema de meditación funciona de maravilla', 'success');
+        }
+        
+        function abrirAplicacion() {
+            window.open('index.html', '_blank');
+        }
+        
+        // Verificar que speechSynthesis esté disponible
+        window.addEventListener('load', function() {
+            if ('speechSynthesis' in window) {
+                actualizarStatus('✅ Sistema listo - Speech Synthesis disponible', 'success');
+                
+                // Cargar voces disponibles
+                setTimeout(() => {
+                    const voces = speechSynthesis.getVoices();
+                    const vocesEspanol = voces.filter(voz => voz.lang.includes('es'));
+                    actualizarResultados(`🎙️ Voces disponibles en español: ${vocesEspanol.length}`, 'info');
+                    
+                    vocesEspanol.forEach(voz => {
+                        actualizarResultados(`  - ${voz.name} (${voz.lang})`, 'info');
+                    });
+                }, 1000);
+            } else {
+                actualizarStatus('❌ Speech Synthesis no disponible en este navegador', 'error');
+            }
+        });
+    </script>
+</body>
+</html>

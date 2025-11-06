@@ -1,0 +1,1295 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Habitando el Error - Plataforma Pedagógica</title>
+    <meta name="description" content="Herramienta pedagógica interactiva basada en el laboratorio creativo Habitando el Error para docentes innovadores">
+    <meta name="keywords" content="educación, pedagogía, creatividad, error, arte, docentes">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Google Fonts: Lexend y Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+    <link rel="stylesheet" href="styles/main.css">
+    
+    <script>
+        // Configuración personalizada de Tailwind CSS
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13a4ec", // Azul vibrante
+                        "primary-dark": "#0f8cc9",
+                        "secondary": "#f59e0b",
+                        "accent": "#8b5cf6",
+                        "background-light": "#f6f7f8",
+                        "text-main": "#0d171b",
+                        "text-muted": "#4c809a",
+                        "success": "#10b981",
+                        "warning": "#f59e0b",
+                        "error": "#ef4444",
+                    },
+                    fontFamily: {
+                        "display": ["Lexend", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "0.75rem",
+                        "xl": "1rem",
+                        "2xl": "1.5rem",
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.7s ease-in-out',
+                        'slide-in': 'slideIn 0.5s ease-out',
+                        'bounce-gentle': 'bounceGentle 2s infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        slideIn: {
+                            '0%': { transform: 'translateX(-100%)' },
+                            '100%': { transform: 'translateX(0)' }
+                        },
+                        bounceGentle: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' }
+                        }
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light text-text-main font-display">
+
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50" role="banner">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="bg-primary/20 p-2 rounded-lg">
+                    <span class="material-symbols-outlined text-primary" aria-hidden="true">science</span>
+                </div>
+                <h1 class="text-xl font-bold">Habitando el Error</h1>
+            </div>
+            <nav class="hidden md:flex items-center space-x-2" role="navigation" aria-label="Navegación principal">
+                <button data-target="vista-modelo" class="nav-btn active px-4 py-2 rounded-lg font-medium text-sm transition-colors" aria-pressed="true">Modelo</button>
+                <button data-target="vista-guia" class="nav-btn px-4 py-2 rounded-lg font-medium text-sm text-gray-600 hover:bg-gray-100 transition-colors" aria-pressed="false">Guía Didáctica</button>
+                <button data-target="vista-laboratorio" class="nav-btn px-4 py-2 rounded-lg font-medium text-sm text-gray-600 hover:bg-gray-100 transition-colors" aria-pressed="false">Laboratorio</button>
+                <button data-target="vista-galeria" class="nav-btn px-4 py-2 rounded-lg font-medium text-sm text-gray-600 hover:bg-gray-100 transition-colors" aria-pressed="false">Galería</button>
+            </nav>
+            <button class="md:hidden" id="mobile-menu-button" aria-label="Abrir menú" aria-expanded="false">
+                <span class="material-symbols-outlined" aria-hidden="true">menu</span>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white py-2 border-t" role="navigation" aria-label="Navegación móvil">
+            <a href="#" data-target="vista-modelo" class="nav-btn-mobile block py-2 px-6 text-sm hover:bg-gray-50">Modelo Pedagógico</a>
+            <a href="#" data-target="vista-guia" class="nav-btn-mobile block py-2 px-6 text-sm hover:bg-gray-50">Guía Didáctica</a>
+            <a href="#" data-target="vista-laboratorio" class="nav-btn-mobile block py-2 px-6 text-sm hover:bg-gray-50">Laboratorio Interactivo</a>
+            <a href="#" data-target="vista-galeria" class="nav-btn-mobile block py-2 px-6 text-sm hover:bg-gray-50">Galería</a>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main role="main">
+        <!-- VISTA 1: MODELO PEDAGÓGICO -->
+        <section id="vista-modelo" class="vista active" aria-labelledby="modelo-title">
+            <div class="bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 min-h-screen">
+                <div class="container mx-auto px-6 py-16">
+                    <!-- Header Principal -->
+                    <header class="text-center mb-16 animate-fade-in">
+                        <h2 id="modelo-title" class="text-5xl font-extrabold text-text-main mb-4">
+                            🎨 El Error como Herramienta Pedagógica
+                        </h2>
+                        <p class="text-xl text-text-muted max-w-3xl mx-auto mb-8">
+                            Una propuesta transformadora donde el arte, la educación y el error convergen para fomentar la creatividad y el pensamiento crítico en el aula.
+                        </p>
+                        
+                        <!-- Introducción Interactiva -->
+                        <div class="bg-white/70 backdrop-blur rounded-2xl max-w-4xl mx-auto p-8 mb-12">
+                            <div class="flex items-center justify-center mb-6">
+                                <div class="bg-primary/20 p-4 rounded-full mr-4">
+                                    <span class="text-4xl">💡</span>
+                                </div>
+                                <h3 class="text-3xl font-bold text-primary">Modelo Pedagógico basado en el Error</h3>
+                            </div>
+                            
+                            <p class="text-lg text-text-main mb-6 leading-relaxed">
+                                Este modelo pedagógico <strong>redefine el concepto tradicional de "error"</strong> en el proceso educativo. En lugar de verlo como algo negativo a evitar, lo transforma en una <em>herramienta constructiva</em> para estimular la creatividad, el pensamiento crítico y el aprendizaje significativo.
+                            </p>
+                            
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div class="bg-gradient-to-r from-primary/10 to-primary/20 p-6 rounded-xl border-l-4 border-primary">
+                                    <h4 class="font-bold text-primary mb-3 flex items-center gap-2">
+                                        <span class="text-xl">🎯</span> Principio Fundamental
+                                    </h4>
+                                    <p class="text-sm text-gray-700">El error no es una falla, sino una <strong>oportunidad de descubrimiento y creación</strong> que enriquece el proceso de aprendizaje.</p>
+                                </div>
+                                <div class="bg-gradient-to-r from-secondary/10 to-secondary/20 p-6 rounded-xl border-l-4 border-secondary">
+                                    <h4 class="font-bold text-secondary mb-3 flex items-center gap-2">
+                                        <span class="text-xl">🔬</span> Metodología
+                                    </h4>
+                                    <p class="text-sm text-gray-700">Combina <strong>arte, pedagogía y experimentación</strong> para crear experiencias de aprendizaje únicas y transformadoras.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </header>
+
+                    <!-- Las 4 Categorías Principales -->
+                    <div class="mb-16">
+                        <h3 class="text-3xl font-bold text-center text-text-main mb-4">🏛️ Los 4 Pilares Fundamentales</h3>
+                        <p class="text-center text-text-muted mb-12 max-w-2xl mx-auto">
+                            Explora cada categoría para descubrir los fundamentos teóricos y prácticos que sustentan este modelo pedagógico innovador.
+                        </p>
+                        
+                        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8" id="categorias-principales">
+                            <!-- Las categorías se cargarán dinámicamente -->
+                        </div>
+                    </div>
+
+                    <!-- Área de Exploración Detallada -->
+                    <div id="area-exploracion" class="hidden">
+                        <!-- Breadcrumb Navigation -->
+                        <nav id="breadcrumb" class="mb-8">
+                            <div class="bg-white/50 rounded-lg p-4">
+                                <div class="flex items-center space-x-2 text-sm">
+                                    <button onclick="volverACategorias()" class="text-primary hover:text-primary-dark font-medium flex items-center gap-1">
+                                        <span class="material-symbols-outlined text-sm">home</span>
+                                        Inicio
+                                    </button>
+                                    <span class="text-gray-400">></span>
+                                    <span id="breadcrumb-categoria" class="text-gray-600"></span>
+                                    <span id="breadcrumb-subcategoria" class="hidden">
+                                        <span class="text-gray-400">></span>
+                                        <span class="text-gray-800 font-medium"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </nav>
+
+                        <!-- Contenido Dinámico de Exploración -->
+                        <div id="contenido-exploracion" class="bg-white rounded-2xl shadow-lg p-8">
+                            <!-- El contenido se cargará dinámicamente -->
+                        </div>
+                    </div>
+
+                    <!-- Resumen Visual del Modelo -->
+                    <div class="bg-gradient-to-r from-purple-100 via-pink-100 to-orange-100 rounded-2xl p-8 mt-16">
+                        <h3 class="text-2xl font-bold text-center text-text-main mb-6">🌟 El Viaje de Habitando el Error</h3>
+                        <div class="grid md:grid-cols-4 gap-6">
+                            <div class="text-center">
+                                <div class="bg-white/80 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
+                                    <span class="text-2xl">🎨</span>
+                                </div>
+                                <h4 class="font-bold text-sm mb-2">Territorio Artístico</h4>
+                                <p class="text-xs text-gray-600">Espacio de libertad creativa</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="bg-white/80 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
+                                    <span class="text-2xl">👨‍🏫</span>
+                                </div>
+                                <h4 class="font-bold text-sm mb-2">Mediador Creativo</h4>
+                                <p class="text-xs text-gray-600">Facilitador del proceso</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="bg-white/80 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
+                                    <span class="text-2xl">🔄</span>
+                                </div>
+                                <h4 class="font-bold text-sm mb-2">Error Transformado</h4>
+                                <p class="text-xs text-gray-600">Oportunidad de aprendizaje</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="bg-white/80 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
+                                    <span class="text-2xl">🚀</span>
+                                </div>
+                                <h4 class="font-bold text-sm mb-2">Creatividad Libre</h4>
+                                <p class="text-xs text-gray-600">Pensamiento innovador</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VISTA 2: GUÍA DIDÁCTICA INTERACTIVA -->
+        <section id="vista-guia" class="vista hidden" aria-labelledby="guia-title">
+             <div class="container mx-auto px-6 py-12">
+                <!-- Header principal -->
+                <header class="text-center mb-12">
+                    <h2 id="guia-title" class="text-4xl font-bold text-text-main mb-4">🎨 Guía Didáctica Interactiva</h2>
+                    <p class="text-lg text-text-muted max-w-3xl mx-auto">Tu compañero paso a paso para implementar el Laboratorio Creativo Habitando el Error. Cada actividad está diseñada para transformar el error en una herramienta de aprendizaje.</p>
+                    
+                    <!-- Indicadores de progreso -->
+                    <div class="mt-8 flex flex-wrap justify-center gap-4 text-sm">
+                        <div class="flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow">
+                            <span class="material-symbols-outlined text-purple-500">psychology</span>
+                            <span>4 Actividades Completas</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow">
+                            <span class="material-symbols-outlined text-green-500">timer</span>
+                            <span>6-8 Sesiones Total</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow">
+                            <span class="material-symbols-outlined text-blue-500">group</span>
+                            <span>Todas las Edades</span>
+                        </div>
+                    </div>
+                </header>
+
+                <!-- Navegación de actividades -->
+                <div class="bg-white rounded-2xl shadow-lg p-6 mb-8">
+                    <h3 class="text-2xl font-bold text-center text-text-main mb-8">📋 Selecciona tu Actividad</h3>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <button onclick="mostrarActividadGuia(1)" class="actividad-btn bg-gradient-to-br from-purple-50 to-pink-50 border-2 border-purple-200 rounded-xl p-6 text-center cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-lg">
+                            <div class="text-5xl mb-3">🎲</div>
+                            <h4 class="text-lg font-bold text-purple-700 mb-2">Actividad 1</h4>
+                            <p class="text-sm text-purple-600 font-medium">El Hacer del Azar</p>
+                            <p class="text-xs text-gray-600 mt-2">2 sesiones • Personajes ficticios</p>
+                        </button>
+                        
+                        <button onclick="mostrarActividadGuia(2)" class="actividad-btn bg-gradient-to-br from-blue-50 to-cyan-50 border-2 border-blue-200 rounded-xl p-6 text-center cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-lg">
+                            <div class="text-5xl mb-3">🏠</div>
+                            <h4 class="text-lg font-bold text-blue-700 mb-2">Actividad 2</h4>
+                            <p class="text-sm text-blue-600 font-medium">El Lugar que me Habita</p>
+                            <p class="text-xs text-gray-600 mt-2">2 sesiones • Dibujo y escritura</p>
+                        </button>
+                        
+                        <button onclick="mostrarActividadGuia(3)" class="actividad-btn bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200 rounded-xl p-6 text-center cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-lg">
+                            <div class="text-5xl mb-3">👥</div>
+                            <h4 class="text-lg font-bold text-green-700 mb-2">Actividad 3</h4>
+                            <p class="text-sm text-green-600 font-medium">Retrato Colectivo</p>
+                            <p class="text-xs text-gray-600 mt-2">3 sesiones • Resignificación</p>
+                        </button>
+                        
+                        <button onclick="mostrarActividadGuia(4)" class="actividad-btn bg-gradient-to-br from-orange-50 to-red-50 border-2 border-orange-200 rounded-xl p-6 text-center cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-lg">
+                            <div class="text-5xl mb-3">🖼️</div>
+                            <h4 class="text-lg font-bold text-orange-700 mb-2">Actividad 4</h4>
+                            <p class="text-sm text-orange-600 font-medium">Exposición Final</p>
+                            <p class="text-xs text-gray-600 mt-2">1 sesión • Celebración</p>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Contenedor dinámico de actividades -->
+                <div id="contenido-actividad" class="hidden">
+                    <!-- El contenido se carga dinámicamente aquí -->
+                </div>
+
+                <!-- Vista inicial - Panel de herramientas generales -->
+                <div id="panel-inicial" class="grid lg:grid-cols-3 gap-8">
+                    <div class="lg:col-span-2 space-y-8">
+                        <!-- Objetivos del laboratorio -->
+                        <div class="bg-white p-8 rounded-xl shadow-lg">
+                            <h3 class="text-2xl font-bold text-text-main mb-6 flex items-center gap-3">
+                                <span class="material-symbols-outlined text-primary">psychology</span>
+                                🎯 Objetivos del Laboratorio Habitando el Error
+                            </h3>
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div class="space-y-4">
+                                    <h4 class="font-bold text-purple-600 text-lg">🧠 Desarrollo Cognitivo</h4>
+                                    <ul class="space-y-3 text-sm">
+                                        <li class="flex items-start gap-3"><span class="material-symbols-outlined text-success text-lg">check_circle</span><span>Desarrollar pensamiento lateral y divergente</span></li>
+                                        <li class="flex items-start gap-3"><span class="material-symbols-outlined text-success text-lg">check_circle</span><span>Fortalecer capacidad de análisis estético</span></li>
+                                        <li class="flex items-start gap-3"><span class="material-symbols-outlined text-success text-lg">check_circle</span><span>Promover metacognición del proceso creativo</span></li>
+                                        <li class="flex items-start gap-3"><span class="material-symbols-outlined text-success text-lg">check_circle</span><span>Transformar errores en oportunidades</span></li>
+                                    </ul>
+                                </div>
+                                <div class="space-y-4">
+                                    <h4 class="font-bold text-blue-600 text-lg">💙 Desarrollo Socioemocional</h4>
+                                    <ul class="space-y-3 text-sm">
+                                        <li class="flex items-start gap-3"><span class="material-symbols-outlined text-success text-lg">check_circle</span><span>Aumentar tolerancia a la frustración</span></li>
+                                        <li class="flex items-start gap-3"><span class="material-symbols-outlined text-success text-lg">check_circle</span><span>Fomentar autoestima y confianza creativa</span></li>
+                                        <li class="flex items-start gap-3"><span class="material-symbols-outlined text-success text-lg">check_circle</span><span>Desarrollar habilidades colaborativas</span></li>
+                                        <li class="flex items-start gap-3"><span class="material-symbols-outlined text-success text-lg">check_circle</span><span>Promover resiliencia ante el error</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Metodología general -->
+                        <div class="bg-gradient-to-br from-purple-50 to-pink-50 p-8 rounded-xl border-2 border-purple-200">
+                            <h3 class="text-2xl font-bold text-purple-800 mb-6 flex items-center gap-3">
+                                <span class="material-symbols-outlined">auto_awesome</span>
+                                🔄 La Metodología Habitando el Error
+                            </h3>
+                            <div class="grid md:grid-cols-3 gap-6">
+                                <div class="text-center">
+                                    <div class="w-16 h-16 bg-purple-200 rounded-full flex items-center justify-center mx-auto mb-4">
+                                        <span class="material-symbols-outlined text-purple-700 text-2xl">psychology</span>
+                                    </div>
+                                    <h4 class="font-bold text-purple-700 mb-2">Experimentación</h4>
+                                    <p class="text-sm text-purple-600">El error como punto de partida, no como obstáculo</p>
+                                </div>
+                                <div class="text-center">
+                                    <div class="w-16 h-16 bg-pink-200 rounded-full flex items-center justify-center mx-auto mb-4">
+                                        <span class="material-symbols-outlined text-pink-700 text-2xl">refresh</span>
+                                    </div>
+                                    <h4 class="font-bold text-pink-700 mb-2">Resignificación</h4>
+                                    <p class="text-sm text-pink-600">Transformar lo inesperado en recurso estético</p>
+                                </div>
+                                <div class="text-center">
+                                    <div class="w-16 h-16 bg-purple-200 rounded-full flex items-center justify-center mx-auto mb-4">
+                                        <span class="material-symbols-outlined text-purple-700 text-2xl">celebration</span>
+                                    </div>
+                                    <h4 class="font-bold text-purple-700 mb-2">Celebración</h4>
+                                    <p class="text-sm text-purple-600">Valorar el proceso por encima del resultado</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Sidebar con recursos -->
+                    <aside class="lg:col-span-1">
+                        <div class="bg-white p-6 rounded-xl shadow-lg sticky top-24">
+                            <h3 class="text-2xl font-bold text-text-main mb-6 flex items-center gap-3">
+                                <span class="material-symbols-outlined text-primary">download_for_offline</span>
+                                📦 Kit del Artista-Educador
+                            </h3>
+                            <!-- Descarga destacada de la Guía Principal -->
+                            <div class="bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl p-6 text-white mb-6">
+                                <h4 class="text-xl font-bold mb-3 flex items-center gap-2">
+                                    <span class="material-symbols-outlined">menu_book</span>
+                                    📖 Guía Completa
+                                </h4>
+                                <p class="text-purple-100 mb-3 text-sm">Descarga el manual pedagógico completo con:</p>
+                                <ul class="text-purple-100 text-xs mb-4 space-y-1 pl-4">
+                                    <li>• 4 Actividades pedagógicas completas</li>
+                                    <li>• Pasos detallados del docente y consignas para estudiantes</li>
+                                    <li>• Disciplinas artísticas e inteligencias múltiples</li>
+                                    <li>• Herramientas de evaluación y rúbricas</li>
+                                    <li>• Adaptaciones para inclusión educativa</li>
+                                </ul>
+                                <a href="guia-didactica-lateralidades.pdf.pdf" download="Guía Didáctica Habitando el Error.pdf" class="bg-white text-purple-600 px-6 py-3 rounded-lg font-bold flex items-center gap-2 hover:bg-purple-50 transition-colors w-full justify-center">
+                                    <span class="material-symbols-outlined">download</span>
+                                    Descargar PDF Completo
+                                </a>
+                            </div>
+
+                            <!-- Recursos Adicionales -->
+                            <div class="space-y-4">
+                               <h4 class="text-lg font-bold text-gray-700 mb-3 flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-gray-600">folder</span>
+                                    📁 Recursos Complementarios
+                               </h4>
+                               <div class="bg-blue-50 rounded-lg border border-blue-200 overflow-hidden">
+                                    <div class="p-4 bg-blue-100 flex items-center gap-3">
+                                        <span class="material-symbols-outlined text-blue-600 text-3xl">article</span>
+                                        <div>
+                                            <p class="font-semibold text-blue-800">🎯 Fichas Interactivas</p>
+                                            <p class="text-sm text-blue-600">Material didáctico para estudiantes (6 documentos)</p>
+                                        </div>
+                                    </div>
+                                    <div class="p-3 space-y-2">
+                                        <div class="bg-blue-200 rounded p-3 mb-3">
+                                            <p class="text-blue-800 font-semibold text-xs mb-2">📋 Materiales Didácticos Disponibles:</p>
+                                            <p class="text-blue-700 text-xs">Descarga individual o utiliza cada ficha según la actividad correspondiente.</p>
+                                        </div>
+                                        <a href="Material de apoyo/¡Crea Tu Personaje de Mancha!.pdf" download="Crea Tu Personaje de Mancha.pdf" class="flex items-center gap-2 text-sm text-blue-700 hover:text-blue-900 hover:bg-blue-100 p-2 rounded transition-colors">
+                                            <span class="material-symbols-outlined text-blue-500 text-lg">download</span>
+                                            <span>🎨 Crea Tu Personaje de Mancha</span>
+                                        </a>
+                                        <a href="Material de apoyo/identificar Mi Error.pdf" download="Identificar Mi Error.pdf" class="flex items-center gap-2 text-sm text-blue-700 hover:text-blue-900 hover:bg-blue-100 p-2 rounded transition-colors">
+                                            <span class="material-symbols-outlined text-blue-500 text-lg">download</span>
+                                            <span>🔍 Identificar Mi Error</span>
+                                        </a>
+                                        <a href="Material de apoyo/Mi Río de Palabras.pdf" download="Mi Río de Palabras.pdf" class="flex items-center gap-2 text-sm text-blue-700 hover:text-blue-900 hover:bg-blue-100 p-2 rounded transition-colors">
+                                            <span class="material-symbols-outlined text-blue-500 text-lg">download</span>
+                                            <span>📝 Mi Río de Palabras</span>
+                                        </a>
+                                        <a href="Material de apoyo/Reflexión, mi Viaje con el Error.pdf" download="Reflexión mi Viaje con el Error.pdf" class="flex items-center gap-2 text-sm text-blue-700 hover:text-blue-900 hover:bg-blue-100 p-2 rounded transition-colors">
+                                            <span class="material-symbols-outlined text-blue-500 text-lg">download</span>
+                                            <span>💭 Reflexión: Mi Viaje con el Error</span>
+                                        </a>
+                                        <a href="Material de apoyo/Se un actor, interpreta el error.pdf" download="Se un actor interpreta el error.pdf" class="flex items-center gap-2 text-sm text-blue-700 hover:text-blue-900 hover:bg-blue-100 p-2 rounded transition-colors">
+                                            <span class="material-symbols-outlined text-blue-500 text-lg">download</span>
+                                            <span>🎭 Sé un Actor: Interpreta el Error</span>
+                                        </a>
+                                        <a href="Material de apoyo/Tarjetas desbloquear.pdf" download="Tarjetas desbloquear.pdf" class="flex items-center gap-2 text-sm text-blue-700 hover:text-blue-900 hover:bg-blue-100 p-2 rounded transition-colors">
+                                            <span class="material-symbols-outlined text-blue-500 text-lg">download</span>
+                                            <span>🃏 Tarjetas Desbloquear</span>
+                                        </a>
+                                    </div>
+                                </div>
+                               <div class="bg-green-50 rounded-lg border border-green-200 overflow-hidden">
+                                    <div class="p-4 bg-green-100 flex items-center gap-3">
+                                        <span class="material-symbols-outlined text-green-600 text-3xl">checklist</span>
+                                        <div>
+                                            <p class="font-semibold text-green-800">📊 Rúbricas de Evaluación</p>
+                                            <p class="text-sm text-green-600">Instrumentos de evaluación por actividad (4 rúbricas)</p>
+                                        </div>
+                                    </div>
+                                    <div class="p-3 space-y-2">
+                                        <div class="bg-green-200 rounded p-3 mb-3">
+                                            <p class="text-green-800 font-semibold text-xs mb-2">✅ Rúbricas Especializadas:</p>
+                                            <p class="text-green-700 text-xs">Criterios de evaluación adaptados al enfoque pedagógico de cada actividad.</p>
+                                        </div>
+                                        <button onclick="generarRubrica('actividad1')" class="flex items-center gap-2 text-sm text-green-700 hover:text-green-900 hover:bg-green-100 p-2 rounded transition-colors w-full text-left">
+                                            <span class="material-symbols-outlined text-green-500 text-lg">download</span>
+                                            <span>🎲 Rúbrica: El Hacer del Azar</span>
+                                        </button>
+                                        <button onclick="generarRubrica('actividad2')" class="flex items-center gap-2 text-sm text-green-700 hover:text-green-900 hover:bg-green-100 p-2 rounded transition-colors w-full text-left">
+                                            <span class="material-symbols-outlined text-green-500 text-lg">download</span>
+                                            <span>🏠 Rúbrica: El Lugar que me Habita</span>
+                                        </button>
+                                        <button onclick="generarRubrica('actividad3')" class="flex items-center gap-2 text-sm text-green-700 hover:text-green-900 hover:bg-green-100 p-2 rounded transition-colors w-full text-left">
+                                            <span class="material-symbols-outlined text-green-500 text-lg">download</span>
+                                            <span>👥 Rúbrica: Retrato Colectivo</span>
+                                        </button>
+                                        <button onclick="generarRubrica('actividad4')" class="flex items-center gap-2 text-sm text-green-700 hover:text-green-900 hover:bg-green-100 p-2 rounded transition-colors w-full text-left">
+                                            <span class="material-symbols-outlined text-green-500 text-lg">download</span>
+                                            <span>🖼️ Rúbrica: Exposición Final</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Consejos destacados -->
+                            <div class="mt-8 p-4 bg-gradient-to-br from-yellow-50 to-amber-50 rounded-lg border border-yellow-200">
+                                <h4 class="font-bold text-amber-700 mb-3 flex items-center gap-2">
+                                    <span class="material-symbols-outlined">lightbulb</span>
+                                    💡 Consejos de Oro
+                                </h4>
+                                <ul class="text-sm space-y-2 text-amber-700">
+                                    <li>• <strong>Ambiente seguro:</strong> Crea un espacio libre de juicios</li>
+                                    <li>• <strong>Regla de oro:</strong> "No borrar ni eliminar nada"</li>
+                                    <li>• <strong>Proceso > Resultado:</strong> Valora el camino, no el destino</li>
+                                    <li>• <strong>Documenta todo:</strong> Fotografía y reflexiona</li>
+                                    <li>• <strong>Celebra siempre:</strong> Cada error es un descubrimiento</li>
+                                </ul>
+                            </div>
+
+                            <!-- Timer de sesión -->
+                            <div class="mt-6 p-4 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg border border-blue-200">
+                                <h4 class="font-bold text-blue-700 mb-3 flex items-center gap-2">
+                                    <span class="material-symbols-outlined">timer</span>
+                                    ⏱️ Timer de Sesión
+                                </h4>
+                                <div id="session-timer" class="text-center">
+                                    <div class="text-2xl font-bold text-blue-800 mb-2">00:00</div>
+                                    <div class="flex gap-2">
+                                        <button onclick="iniciarTimer(90)" class="flex-1 bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700">90 min</button>
+                                        <button onclick="pararTimer()" class="flex-1 bg-gray-500 text-white px-3 py-1 rounded text-sm hover:bg-gray-600">Parar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </section>
+        
+        <!-- VISTA 3: LABORATORIO INTERACTIVO -->
+        <section id="vista-laboratorio" class="vista hidden" aria-labelledby="lab-title">
+            <div class="container mx-auto px-4 py-8">
+                <header class="text-center mb-12">
+                    <h2 id="lab-title" class="text-4xl font-bold text-text-main mb-6">Laboratorio Creativo Habitando el Error</h2>
+                    <p class="text-xl text-text-muted max-w-4xl mx-auto mb-8">Un espacio virtual interactivo donde experimentas directamente la metodología Habitando el Error. Aquí transformarás tu percepción del error a través de actividades prácticas que fomentan la creatividad y la resiliencia.</p>
+                    
+                    <!-- Objetivo Principal -->
+                    <div class="bg-gradient-to-r from-primary/10 to-accent/10 rounded-2xl p-8 mb-8 max-w-5xl mx-auto">
+                        <h3 class="text-2xl font-bold text-text-main mb-4 flex items-center justify-center gap-3">
+                            <span class="material-symbols-outlined text-primary">flag</span>
+                            Objetivo del Laboratorio
+                        </h3>
+                        <p class="text-lg text-text-main leading-relaxed">
+                            <strong>Vivenciar el laboratorio creativo Habitando el Error</strong> mediante experiencias prácticas que permitan comprender cómo el error puede convertirse en una herramienta poderosa para el aprendizaje creativo, desarrollando competencias artísticas, emocionales y reflexivas a través de actividades multidisciplinarias.
+                        </p>
+                    </div>
+
+                    <!-- Diseño del Laboratorio -->
+                    <div class="bg-white rounded-2xl shadow-lg p-8 mb-8 max-w-5xl mx-auto">
+                        <h3 class="text-2xl font-bold text-text-main mb-6 flex items-center justify-center gap-3">
+                            <span class="material-symbols-outlined text-secondary">architecture</span>
+                            Diseño y Estructura
+                        </h3>
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div>
+                                <h4 class="text-lg font-semibold text-text-main mb-3 flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-primary">psychology</span>
+                                    Enfoque Pedagógico
+                                </h4>
+                                <ul class="space-y-2 text-text-muted">
+                                    <li class="flex items-start gap-2">
+                                        <span class="material-symbols-outlined text-success text-sm mt-1">check_circle</span>
+                                        <span><strong>Aprendizaje experiencial:</strong> Aprender haciendo y reflexionando</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="material-symbols-outlined text-success text-sm mt-1">check_circle</span>
+                                        <span><strong>Metodología activa:</strong> Participación directa en el proceso creativo</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="material-symbols-outlined text-success text-sm mt-1">check_circle</span>
+                                        <span><strong>Reflexión metacognitiva:</strong> Análisis del propio proceso de aprendizaje</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-text-main mb-3 flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-accent">layers</span>
+                                    Componentes Clave
+                                </h4>
+                                <ul class="space-y-2 text-text-muted">
+                                    <li class="flex items-start gap-2">
+                                        <span class="material-symbols-outlined text-warning text-sm mt-1">star</span>
+                                        <span><strong>Actividades multisensoriales:</strong> Arte, escritura, expresión corporal</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="material-symbols-outlined text-warning text-sm mt-1">star</span>
+                                        <span><strong>Progresión secuencial:</strong> De individual a colectivo</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="material-symbols-outlined text-warning text-sm mt-1">star</span>
+                                        <span><strong>Documentación digital:</strong> Registro del proceso creativo</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Funcionalidades -->
+                    <div class="mt-8 flex flex-wrap justify-center gap-4 text-sm">
+                        <div class="flex items-center gap-2 bg-white px-6 py-3 rounded-full shadow-lg border border-primary/20">
+                            <span class="material-symbols-outlined text-success">brush</span>
+                            <span class="font-medium">Creación Libre</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-white px-6 py-3 rounded-full shadow-lg border border-secondary/20">
+                            <span class="material-symbols-outlined text-warning">psychology</span>
+                            <span class="font-medium">Reflexión Guiada</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-white px-6 py-3 rounded-full shadow-lg border border-accent/20">
+                            <span class="material-symbols-outlined text-primary">download</span>
+                            <span class="font-medium">Descarga Resultados</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-white px-6 py-3 rounded-full shadow-lg border border-success/20">
+                            <span class="material-symbols-outlined text-accent">share</span>
+                            <span class="font-medium">Comparte Experiencias</span>
+                        </div>
+                    </div>
+                </header>
+                <div id="lab-content-container" class="max-w-5xl mx-auto bg-white rounded-2xl shadow-xl p-4 sm:p-8">
+                    <!-- Lab content will be dynamically inserted here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- VISTA 4: GALERÍA -->
+        <section id="vista-galeria" class="vista hidden" aria-labelledby="galeria-title">
+             <div class="container mx-auto px-6 py-12">
+                <header class="text-center mb-12">
+                    <h2 id="galeria-title" class="text-4xl font-bold text-text-main mb-4">Galería de Experiencias</h2>
+                    <p class="text-lg text-text-muted max-w-3xl mx-auto">Inspírate con las creaciones nacidas del error en aulas reales. Cada imagen cuenta una historia de transformación y descubrimiento.</p>
+                </header>
+                
+                <!-- Filtros -->
+                <div class="flex flex-wrap justify-center gap-6 mb-12">
+                    <button class="filtro-btn relative px-8 py-4 rounded-full font-bold text-lg active bg-gradient-to-r from-purple-600 to-purple-800 text-white shadow-2xl transform hover:scale-105 transition-all duration-300" data-filtro="retrato-colectivo">
+                        <span class="relative z-10">🎭 Retrato Colaborativo</span>
+                        <div class="absolute inset-0 bg-gradient-to-r from-purple-400 to-purple-600 rounded-full opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+                    </button>
+                    <button class="filtro-btn relative px-8 py-4 rounded-full font-bold text-lg bg-gradient-to-r from-blue-600 to-blue-800 text-white shadow-2xl transform hover:scale-105 transition-all duration-300" data-filtro="mancha">
+                        <span class="relative z-10">🎨 Actividad Mancha</span>
+                        <div class="absolute inset-0 bg-gradient-to-r from-blue-400 to-blue-600 rounded-full opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+                    </button>
+                    <button class="filtro-btn relative px-8 py-4 rounded-full font-bold text-lg bg-gradient-to-r from-green-600 to-green-800 text-white shadow-2xl transform hover:scale-105 transition-all duration-300" data-filtro="lugar-habita">
+                        <span class="relative z-10">🏠 El Lugar que me Habita</span>
+                        <div class="absolute inset-0 bg-gradient-to-r from-green-400 to-green-600 rounded-full opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+                    </button>
+                    <button class="filtro-btn relative px-8 py-4 rounded-full font-bold text-lg bg-gradient-to-r from-red-600 to-red-800 text-white shadow-2xl transform hover:scale-105 transition-all duration-300" data-filtro="resignificacion-error">
+                        <span class="relative z-10">⚡ Resignificación del Error</span>
+                        <div class="absolute inset-0 bg-gradient-to-r from-red-400 to-red-600 rounded-full opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+                    </button>
+                </div>
+                
+                <!-- Grid de la galería -->
+                <div id="grid-galeria" class="galeria-masonry columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-6 space-y-6 mb-16">
+                    
+                    <!-- Actividad Retrato Colectivo - TODAS LAS FOTOS -->
+                    <div class="galeria-item break-inside-avoid mb-6 transform transition-all duration-500 hover:scale-105" data-categoria="retrato-colectivo">
+                        <div class="relative group bg-gradient-to-br from-purple-50 to-purple-100 rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500">
+                            <div class="absolute top-4 left-4 z-20 bg-purple-600 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
+                                🎭
+                            </div>
+                            <img src="Actividad retrato colectivo/IMG_20250618_075437.jpg" alt="Retrato Colectivo 1" class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-purple-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                            <div class="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                                <h3 class="font-bold text-xl mb-2">Inicio del proceso</h3>
+                                <p class="text-purple-100 text-sm">Primeras ideas y planificación grupal</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="galeria-item break-inside-avoid mb-6 transform transition-all duration-500 hover:scale-105" data-categoria="retrato-colectivo">
+                        <div class="relative group bg-gradient-to-br from-purple-50 to-purple-100 rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500">
+                            <div class="absolute top-4 left-4 z-20 bg-purple-600 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
+                                🎭
+                            </div>
+                            <img src="Actividad retrato colectivo/IMG_20250618_080244.jpg" alt="Retrato Colectivo 2" class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-purple-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                            <div class="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                                <h3 class="font-bold text-xl mb-2">Planificación grupal</h3>
+                                <p class="text-purple-100 text-sm">Discusión y desarrollo de ideas</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="galeria-item break-inside-avoid mb-6 transform transition-all duration-500 hover:scale-105" data-categoria="retrato-colectivo">
+                        <div class="relative group bg-gradient-to-br from-purple-50 to-purple-100 rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500">
+                            <div class="absolute top-4 left-4 z-20 bg-purple-600 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
+                                🎭
+                            </div>
+                            <img src="Actividad retrato colectivo/IMG_20250618_080506.jpg" alt="Retrato Colectivo 3" class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-purple-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                            <div class="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                                <h3 class="font-bold text-xl mb-2">Elementos visuales</h3>
+                                <p class="text-purple-100 text-sm">Discusión sobre componentes del retrato</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="galeria-item break-inside-avoid mb-6 transform transition-all duration-500 hover:scale-105" data-categoria="retrato-colectivo">
+                        <div class="relative group bg-gradient-to-br from-purple-50 to-purple-100 rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500">
+                            <div class="absolute top-4 left-4 z-20 bg-purple-600 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
+                                🎭
+                            </div>
+                            <img src="Actividad retrato colectivo/IMG_20250625_093738.jpg" alt="Retrato Colectivo 4" class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-purple-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                            <div class="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                                <h3 class="font-bold text-xl mb-2">Identidad grupal</h3>
+                                <p class="text-purple-100 text-sm">Desarrollo de la esencia colectiva</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="galeria-item break-inside-avoid mb-6 transform transition-all duration-500 hover:scale-105" data-categoria="retrato-colectivo">
+                        <div class="relative group bg-gradient-to-br from-purple-50 to-purple-100 rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500">
+                            <div class="absolute top-4 left-4 z-20 bg-purple-600 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
+                                🎭
+                            </div>
+                            <img src="Actividad retrato colectivo/IMG_20250711_183526_edit_232997024997257.jpg" alt="Retrato Colectivo 5" class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-purple-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                            <div class="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                                <h3 class="font-bold text-xl mb-2">Reflexión grupal</h3>
+                                <p class="text-purple-100 text-sm">Sesión de análisis conjunto</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="galeria-item break-inside-avoid mb-6 transform transition-all duration-500 hover:scale-105" data-categoria="retrato-colectivo">
+                        <div class="relative group bg-gradient-to-br from-purple-50 to-purple-100 rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500">
+                            <div class="absolute top-4 left-4 z-20 bg-purple-600 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
+                                🎭
+                            </div>
+                            <img src="Actividad retrato colectivo/IMG_20250720_144704.jpg" alt="Retrato Colectivo 6" class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-purple-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                            <div class="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                                <h3 class="font-bold text-xl mb-2">Trabajo colaborativo</h3>
+                                <p class="text-purple-100 text-sm">Construcción activa en proceso</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="galeria-item break-inside-avoid mb-6 transform transition-all duration-500 hover:scale-105" data-categoria="retrato-colectivo">
+                        <div class="relative group bg-gradient-to-br from-purple-50 to-purple-100 rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500">
+                            <div class="absolute top-4 left-4 z-20 bg-purple-600 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
+                                🎭
+                            </div>
+                            <img src="Actividad retrato colectivo/IMG_20250720_153844.jpg" alt="Retrato Colectivo 7" class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-purple-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                            <div class="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                                <h3 class="font-bold text-xl mb-2">Construcción visual</h3>
+                                <p class="text-purple-100 text-sm">Materialización del grupo</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="galeria-item break-inside-avoid mb-6 transform transition-all duration-500 hover:scale-105" data-categoria="retrato-colectivo">
+                        <div class="relative group bg-gradient-to-br from-purple-50 to-purple-100 rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500">
+                            <div class="absolute top-4 left-4 z-20 bg-purple-600 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
+                                🎭
+                            </div>
+                            <img src="Actividad retrato colectivo/IMG_20250720_154027.jpg" alt="Retrato Colectivo 8" class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-purple-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                            <div class="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                                <h3 class="font-bold text-xl mb-2">Finalización</h3>
+                                <p class="text-purple-100 text-sm">Completando el retrato grupal</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Actividad Mancha - TODAS LAS FOTOS -->
+                    <div class="galeria-item break-inside-avoid mb-6 transform transition-all duration-500 hover:scale-105" data-categoria="mancha">
+                        <div class="relative group bg-gradient-to-br from-blue-50 to-blue-100 rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500">
+                            <div class="absolute top-4 left-4 z-20 bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
+                                🎨
+                            </div>
+                            <img src="Actividad Mancha/IMG_20250624_091049.jpg" alt="Actividad Mancha 1" class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-blue-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                            <div class="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                                <h3 class="font-bold text-xl mb-2">Primera aproximación</h3>
+                                <p class="text-blue-100 text-sm">Exploración inicial de la mancha</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="galeria-item break-inside-avoid mb-6 transform transition-all duration-500 hover:scale-105" data-categoria="mancha">
+                        <div class="relative group bg-gradient-to-br from-blue-50 to-blue-100 rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500">
+                            <div class="absolute top-4 left-4 z-20 bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
+                                🎨
+                            </div>
+                            <img src="Actividad Mancha/IMG_20250624_100438.jpg" alt="Actividad Mancha 2" class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-blue-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                            <div class="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                                <h3 class="font-bold text-xl mb-2">Experimentando formas</h3>
+                                <p class="text-blue-100 text-sm">Desarrollo de la experimentación visual</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="galeria-item break-inside-avoid mb-6 transform transition-all duration-500 hover:scale-105" data-categoria="mancha">
+                        <div class="relative group bg-gradient-to-br from-blue-50 to-blue-100 rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500">
+                            <div class="absolute top-4 left-4 z-20 bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
+                                🎨
+                            </div>
+                            <img src="Actividad Mancha/IMG_20250624_100507.jpg" alt="Actividad Mancha 3" class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-blue-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                            <div class="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                                <h3 class="font-bold text-xl mb-2">Interpretación personal</h3>
+                                <p class="text-blue-100 text-sm">Desarrollo de la visión individual</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="galeria-item break-inside-avoid mb-6 transform transition-all duration-500 hover:scale-105" data-categoria="mancha">
+                        <div class="relative group bg-gradient-to-br from-blue-50 to-blue-100 rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500">
+                            <div class="absolute top-4 left-4 z-20 bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
+                                🎨
+                            </div>
+                            <img src="Actividad Mancha/IMG_20250624_102351.jpg" alt="Actividad Mancha 4" class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-blue-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                            <div class="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                                <h3 class="font-bold text-xl mb-2">Creatividad visual</h3>
+                                <p class="text-blue-100 text-sm">Ampliando horizontes creativos</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="galeria-item break-inside-avoid mb-6 transform transition-all duration-500 hover:scale-105" data-categoria="mancha">
+                        <div class="relative group bg-gradient-to-br from-blue-50 to-blue-100 rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500">
+                            <div class="absolute top-4 left-4 z-20 bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
+                                🎨
+                            </div>
+                            <img src="Actividad Mancha/IMG_20250624_104111.jpg" alt="Actividad Mancha 5" class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-blue-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                            <div class="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                                <h3 class="font-bold text-xl mb-2">Consolidando ideas</h3>
+                                <p class="text-blue-100 text-sm">Integración de conceptos visuales</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="galeria-item break-inside-avoid mb-6 transform transition-all duration-500 hover:scale-105" data-categoria="mancha">
+                        <div class="relative group bg-gradient-to-br from-blue-50 to-blue-100 rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500">
+                            <div class="absolute top-4 left-4 z-20 bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
+                                🎨
+                            </div>
+                            <img src="Actividad Mancha/IMG_20250720_160118.jpg" alt="Actividad Mancha 6" class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-blue-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                            <div class="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                                <h3 class="font-bold text-xl mb-2">Conexión cuerpo-creación</h3>
+                                <p class="text-blue-100 text-sm">Integración de lenguajes expresivos</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="galeria-item break-inside-avoid mb-6 transform transition-all duration-500 hover:scale-105" data-categoria="mancha">
+                        <div class="relative group bg-gradient-to-br from-blue-50 to-blue-100 rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500">
+                            <div class="absolute top-4 left-4 z-20 bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
+                                🎨
+                            </div>
+                            <img src="Actividad Mancha/IMG_20250720_160344.jpg" alt="Actividad Mancha 7" class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-blue-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                            <div class="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                                <h3 class="font-bold text-xl mb-2">Embodiment abstracto</h3>
+                                <p class="text-blue-100 text-sm">Formas corporales de expresión</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="galeria-item break-inside-avoid mb-6 transform transition-all duration-500 hover:scale-105" data-categoria="mancha">
+                        <div class="relative group bg-gradient-to-br from-blue-50 to-blue-100 rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500">
+                            <div class="absolute top-4 left-4 z-20 bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
+                                🎨
+                            </div>
+                            <img src="Actividad Mancha/IMG_20250720_160419.jpg" alt="Actividad Mancha 8" class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-blue-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                            <div class="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                                <h3 class="font-bold text-xl mb-2">Expresión corporal</h3>
+                                <p class="text-blue-100 text-sm">La mancha como movimiento</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="galeria-item" data-categoria="mancha">
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <img src="Actividad Mancha/IMG_20250720_161326.jpg" alt="Actividad Mancha 9" class="w-full h-48 object-cover">
+                            <div class="p-4">
+                                <h3 class="font-bold text-lg mb-2 text-blue-700">Actividad Mancha</h3>
+                                <p class="text-gray-600 text-sm">Concentración en el proceso</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="galeria-item" data-categoria="mancha">
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <img src="Actividad Mancha/IMG_20250720_161504.jpg" alt="Actividad Mancha 10" class="w-full h-48 object-cover">
+                            <div class="p-4">
+                                <h3 class="font-bold text-lg mb-2 text-blue-700">Actividad Mancha</h3>
+                                <p class="text-gray-600 text-sm">Inmersión en la actividad</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="galeria-item" data-categoria="mancha">
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <img src="Actividad Mancha/IMG_20250720_163514.jpg" alt="Actividad Mancha 11" class="w-full h-48 object-cover">
+                            <div class="p-4">
+                                <h3 class="font-bold text-lg mb-2 text-blue-700">Actividad Mancha</h3>
+                                <p class="text-gray-600 text-sm">Exploración de posibilidades</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="galeria-item" data-categoria="mancha">
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <img src="Actividad Mancha/IMG_20250720_163923.jpg" alt="Actividad Mancha 12" class="w-full h-48 object-cover">
+                            <div class="p-4">
+                                <h3 class="font-bold text-lg mb-2 text-blue-700">Actividad Mancha</h3>
+                                <p class="text-gray-600 text-sm">Síntesis del aprendizaje</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- El Lugar que me Habita - TODAS LAS FOTOS -->
+                    <div class="galeria-item" data-categoria="lugar-habita">
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <img src="Actividad El lugar que me habita/IMG_20250618_094016.jpg" alt="El lugar que me habita 1" class="w-full h-48 object-cover">
+                            <div class="p-4">
+                                <h3 class="font-bold text-lg mb-2 text-green-700">El Lugar que me Habita</h3>
+                                <p class="text-gray-600 text-sm">Reconocimiento del espacio propio</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="galeria-item" data-categoria="lugar-habita">
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <img src="Actividad El lugar que me habita/IMG_20250618_094039.jpg" alt="El lugar que me habita 2" class="w-full h-48 object-cover">
+                            <div class="p-4">
+                                <h3 class="font-bold text-lg mb-2 text-green-700">El Lugar que me Habita</h3>
+                                <p class="text-gray-600 text-sm">Diálogo sobre territorialidad</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="galeria-item" data-categoria="lugar-habita">
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <img src="Actividad El lugar que me habita/IMG_20250720_150543_edit_121719039610072.jpg" alt="El lugar que me habita 3" class="w-full h-48 object-cover">
+                            <div class="p-4">
+                                <h3 class="font-bold text-lg mb-2 text-green-700">El Lugar que me Habita</h3>
+                                <p class="text-gray-600 text-sm">Construcción de mapas emocionales</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="galeria-item" data-categoria="lugar-habita">
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <img src="Actividad El lugar que me habita/IMG_20250720_150619_edit_121704000984033.jpg" alt="El lugar que me habita 4" class="w-full h-48 object-cover">
+                            <div class="p-4">
+                                <h3 class="font-bold text-lg mb-2 text-green-700">El Lugar que me Habita</h3>
+                                <p class="text-gray-600 text-sm">Narrativas del habitar cotidiano</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="galeria-item" data-categoria="lugar-habita">
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <img src="Actividad El lugar que me habita/IMG_20250720_150726_edit_121679142113724.jpg" alt="El lugar que me habita 5" class="w-full h-48 object-cover">
+                            <div class="p-4">
+                                <h3 class="font-bold text-lg mb-2 text-green-700">El Lugar que me Habita</h3>
+                                <p class="text-gray-600 text-sm">Reflexión sobre espacios íntimos</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="galeria-item" data-categoria="lugar-habita">
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <img src="Actividad El lugar que me habita/IMG_20250720_150816_edit_121664773701227.jpg" alt="El lugar que me habita 6" class="w-full h-48 object-cover">
+                            <div class="p-4">
+                                <h3 class="font-bold text-lg mb-2 text-green-700">El Lugar que me Habita</h3>
+                                <p class="text-gray-600 text-sm">Exploración de memorias espaciales</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="galeria-item" data-categoria="lugar-habita">
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <img src="Actividad El lugar que me habita/IMG_20250720_150846.jpg" alt="El lugar que me habita 7" class="w-full h-48 object-cover">
+                            <div class="p-4">
+                                <h3 class="font-bold text-lg mb-2 text-green-700">El Lugar que me Habita</h3>
+                                <p class="text-gray-600 text-sm">Cartografía personal del lugar</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="galeria-item" data-categoria="lugar-habita">
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <img src="Actividad El lugar que me habita/IMG_20250720_151228.jpg" alt="El lugar que me habita 8" class="w-full h-48 object-cover">
+                            <div class="p-4">
+                                <h3 class="font-bold text-lg mb-2 text-green-700">El Lugar que me Habita</h3>
+                                <p class="text-gray-600 text-sm">Materialización de vínculos espaciales</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="galeria-item" data-categoria="lugar-habita">
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <img src="Actividad El lugar que me habita/IMG_20250720_151438_edit_121644939301230.jpg" alt="El lugar que me habita 9" class="w-full h-48 object-cover">
+                            <div class="p-4">
+                                <h3 class="font-bold text-lg mb-2 text-green-700">El Lugar que me Habita</h3>
+                                <p class="text-gray-600 text-sm">Representación visual del territorio</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="galeria-item" data-categoria="lugar-habita">
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <img src="Actividad El lugar que me habita/IMG_20250720_151513_edit_121627767284566.jpg" alt="El lugar que me habita 10" class="w-full h-48 object-cover">
+                            <div class="p-4">
+                                <h3 class="font-bold text-lg mb-2 text-green-700">El Lugar que me Habita</h3>
+                                <p class="text-gray-600 text-sm">Conexión afectiva con el espacio</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="galeria-item" data-categoria="lugar-habita">
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <img src="Actividad El lugar que me habita/IMG_20250720_151539_edit_121614736861651.jpg" alt="El lugar que me habita 11" class="w-full h-48 object-cover">
+                            <div class="p-4">
+                                <h3 class="font-bold text-lg mb-2 text-green-700">El Lugar que me Habita</h3>
+                                <p class="text-gray-600 text-sm">Definición de límites personales</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="galeria-item" data-categoria="lugar-habita">
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <img src="Actividad El lugar que me habita/IMG_20250720_151653_edit_121595777585612.jpg" alt="El lugar que me habita 12" class="w-full h-48 object-cover">
+                            <div class="p-4">
+                                <h3 class="font-bold text-lg mb-2 text-green-700">El Lugar que me Habita</h3>
+                                <p class="text-gray-600 text-sm">Síntesis del espacio habitado</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Resignificación del Error - TODAS LAS FOTOS -->
+                    <div class="galeria-item" data-categoria="resignificacion-error">
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <img src="Actividad resignificación del Error/IMG_20250624_223042.jpg" alt="Resignificación del Error 1" class="w-full h-48 object-cover">
+                            <div class="p-4">
+                                <h3 class="font-bold text-lg mb-2 text-red-700">Resignificación del Error</h3>
+                                <p class="text-gray-600 text-sm">Introducción al concepto de error</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="galeria-item" data-categoria="resignificacion-error">
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <img src="Actividad resignificación del Error/IMG_20250625_082245.jpg" alt="Resignificación del Error 2" class="w-full h-48 object-cover">
+                            <div class="p-4">
+                                <h3 class="font-bold text-lg mb-2 text-red-700">Resignificación del Error</h3>
+                                <p class="text-gray-600 text-sm">Reflexión sobre experiencias pasadas</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="galeria-item" data-categoria="resignificacion-error">
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <img src="Actividad resignificación del Error/IMG_20250625_083941.jpg" alt="Resignificación del Error 3" class="w-full h-48 object-cover">
+                            <div class="p-4">
+                                <h3 class="font-bold text-lg mb-2 text-red-700">Resignificación del Error</h3>
+                                <p class="text-gray-600 text-sm">Transformación de perspectivas</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="galeria-item" data-categoria="resignificacion-error">
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <img src="Actividad resignificación del Error/IMG_20250625_104149.jpg" alt="Resignificación del Error 4" class="w-full h-48 object-cover">
+                            <div class="p-4">
+                                <h3 class="font-bold text-lg mb-2 text-red-700">Resignificación del Error</h3>
+                                <p class="text-gray-600 text-sm">Creación desde el error</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="galeria-item" data-categoria="resignificacion-error">
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <img src="Actividad resignificación del Error/IMG_20250625_125418.jpg" alt="Resignificación del Error 5" class="w-full h-48 object-cover">
+                            <div class="p-4">
+                                <h3 class="font-bold text-lg mb-2 text-red-700">Resignificación del Error</h3>
+                                <p class="text-gray-600 text-sm">Nuevas oportunidades de aprendizaje</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="galeria-item" data-categoria="resignificacion-error">
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <img src="Actividad resignificación del Error/IMG_20250711_172739_edit_229982393803446.jpg" alt="Resignificación del Error 6" class="w-full h-48 object-cover">
+                            <div class="p-4">
+                                <h3 class="font-bold text-lg mb-2 text-red-700">Resignificación del Error</h3>
+                                <p class="text-gray-600 text-sm">Diálogo constructivo sobre errores</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="galeria-item" data-categoria="resignificacion-error">
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <img src="Actividad resignificación del Error/IMG_20250711_172808_edit_229974296450843.jpg" alt="Resignificación del Error 7" class="w-full h-48 object-cover">
+                            <div class="p-4">
+                                <h3 class="font-bold text-lg mb-2 text-red-700">Resignificación del Error</h3>
+                                <p class="text-gray-600 text-sm">Intercambio de experiencias</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="galeria-item" data-categoria="resignificacion-error">
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <img src="Actividad resignificación del Error/IMG_20250711_172910.jpg" alt="Resignificación del Error 8" class="w-full h-48 object-cover">
+                            <div class="p-4">
+                                <h3 class="font-bold text-lg mb-2 text-red-700">Resignificación del Error</h3>
+                                <p class="text-gray-600 text-sm">Momento de comprensión colectiva</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="galeria-item" data-categoria="resignificacion-error">
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <img src="Actividad resignificación del Error/IMG_20250711_172947_edit_229607305444129.jpg" alt="Resignificación del Error 9" class="w-full h-48 object-cover">
+                            <div class="p-4">
+                                <h3 class="font-bold text-lg mb-2 text-red-700">Resignificación del Error</h3>
+                                <p class="text-gray-600 text-sm">Construcción colaborativa de nuevos sentidos</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="galeria-item" data-categoria="resignificacion-error">
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <img src="Actividad resignificación del Error/IMG_20250711_173233_edit_229771952235770.jpg" alt="Resignificación del Error 10" class="w-full h-48 object-cover">
+                            <div class="p-4">
+                                <h3 class="font-bold text-lg mb-2 text-red-700">Resignificación del Error</h3>
+                                <p class="text-gray-600 text-sm">Proceso de reinterpretación creativa</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="galeria-item" data-categoria="resignificacion-error">
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <img src="Actividad resignificación del Error/IMG_20250711_173314_edit_229812556954514.jpg" alt="Resignificación del Error 11" class="w-full h-48 object-cover">
+                            <div class="p-4">
+                                <h3 class="font-bold text-lg mb-2 text-red-700">Resignificación del Error</h3>
+                                <p class="text-gray-600 text-sm">Transformación del concepto de falla</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="galeria-item" data-categoria="resignificacion-error">
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <img src="Actividad resignificación del Error/IMG_20250711_174044_edit_230295979971628.jpg" alt="Resignificación del Error 12" class="w-full h-48 object-cover">
+                            <div class="p-4">
+                                <h3 class="font-bold text-lg mb-2 text-red-700">Resignificación del Error</h3>
+                                <p class="text-gray-600 text-sm">Innovación desde la equivocación</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="galeria-item" data-categoria="resignificacion-error">
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <img src="Actividad resignificación del Error/IMG_20250711_174234_edit_230373071728908.jpg" alt="Resignificación del Error 13" class="w-full h-48 object-cover">
+                            <div class="p-4">
+                                <h3 class="font-bold text-lg mb-2 text-red-700">Resignificación del Error</h3>
+                                <p class="text-gray-600 text-sm">Creación colectiva transformadora</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="galeria-item" data-categoria="resignificacion-error">
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <img src="Actividad resignificación del Error/IMG_20250711_181729_edit_231997597657305.jpg" alt="Resignificación del Error 14" class="w-full h-48 object-cover">
+                            <div class="p-4">
+                                <h3 class="font-bold text-lg mb-2 text-red-700">Resignificación del Error</h3>
+                                <p class="text-gray-600 text-sm">Celebración del aprendizaje transformativo</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+
+                <!-- Formulario de contacto mejorado -->
+                <div class="bg-white rounded-2xl shadow-xl p-8 max-w-4xl mx-auto">
+                    <h3 class="text-3xl font-bold text-text-main mb-2 text-center">Únete a Nuestra Comunidad</h3>
+                    <p class="text-text-muted mb-8 text-center">¿Tienes una experiencia, foto o testimonio para compartir? ¡Queremos conocer tu historia!</p>
+                    <form action="#" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-6" id="community-form">
+                        <div>
+                            <label class="block text-sm font-medium mb-2" for="name">Nombre completo</label>
+                            <input class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-colors" id="name" name="name" type="text" required/>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2" for="email">Correo electrónico</label>
+                            <input class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-colors" id="email" name="email" type="email" required/>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2" for="institution">Institución educativa</label>
+                            <input class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-colors" id="institution" name="institution" type="text"/>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2" for="role">Tu rol</label>
+                            <select class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-colors" id="role" name="role">
+                                <option value="">Selecciona una opción</option>
+                                <option value="docente">Docente</option>
+                                <option value="estudiante">Estudiante</option>
+                                <option value="coordinador">Coordinador académico</option>
+                                <option value="directivo">Directivo</option>
+                                <option value="otro">Otro</option>
+                            </select>
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-medium mb-2" for="story">Comparte tu experiencia</label>
+                            <textarea class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-colors" id="story" name="story" rows="5" placeholder="Cuéntanos cómo Habitando el Error ha impactado tu experiencia educativa..."></textarea>
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-medium mb-2" for="image">Subir imagen (opcional)</label>
+                            <input class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-colors" id="image" name="image" type="file" accept="image/*"/>
+                        </div>
+                        <div class="md:col-span-2 flex justify-center">
+                            <button class="inline-flex items-center justify-center rounded-lg bg-primary px-8 py-4 text-lg font-semibold text-white shadow-lg transition-all hover:bg-primary-dark hover:shadow-xl transform hover:-translate-y-1" type="submit">
+                                <span class="material-symbols-outlined mr-2">send</span>
+                                Compartir Mi Historia
+                            </button>
+                        </div>
+                    </form>
+                </div>
+             </div>
+        </section>
+
+    </main>
+    
+    <footer class="bg-white mt-16 border-t" role="contentinfo">
+        <div class="container mx-auto px-6 py-12">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div class="md:col-span-2">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="bg-primary/20 p-2 rounded-lg">
+                            <span class="material-symbols-outlined text-primary">science</span>
+                        </div>
+                        <h3 class="text-xl font-bold">Habitando el Error</h3>
+                    </div>
+                    <p class="text-text-muted mb-4">Una plataforma pedagógica innovadora que transforma la educación a través del arte y la creatividad.</p>
+                    <p class="text-sm text-text-muted">Basado en la tesis de maestría sobre la Pedagogía del Error como herramienta de transformación educativa.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Enlaces Útiles</h4>
+                    <ul class="space-y-2 text-sm text-text-muted">
+                        <li><a href="#vista-modelo" class="hover:text-primary transition-colors">Modelo Pedagógico</a></li>
+                        <li><a href="#vista-guia" class="hover:text-primary transition-colors">Guía Didáctica</a></li>
+                        <li><a href="#vista-laboratorio" class="hover:text-primary transition-colors">Laboratorio</a></li>
+                        <li><a href="#vista-galeria" class="hover:text-primary transition-colors">Galería</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Contacto</h4>
+                    <ul class="space-y-2 text-sm text-text-muted">
+                        <li class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-lg">email</span>
+                            <span>info@errorcreativo.edu</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-lg">language</span>
+                            <span>www.errorcreativo.edu</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t pt-8 text-center text-text-muted">
+                <p class="font-semibold">&copy; 2025 Habitando el Error - Todos los derechos reservados</p>
+                <p class="text-sm mt-2">Proyecto desarrollado como herramienta pedagógica para la transformación educativa</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/modelo-pedagogico.js"></script>
+        <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="js/guia-didactica-fixed.js"></script>
+    <script src="js/resources.js"></script>
+    <script src="js/main-clean.js"></script>
+    <script src="js/laboratorio-original.js"></script>
+    <!-- Simulador avanzado de manchas -->
+    <script src="js/simulador-mancha-avanzado.js"></script>
+    <!-- Sistema avanzado de pinceles -->
+    <script src="js/sistema-pinceles-avanzado.js"></script>
+    <script src="js/ui-pinceles-avanzada.js"></script>
+    <script src="js/actividades-interactivas.js"></script>
+    <script src="js/guia-didactica.js"></script>
+    
+    <!-- Script para filtros de galería -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const filtros = document.querySelectorAll('.filtro-btn');
+            const items = document.querySelectorAll('.galeria-item');
+            
+            // Función para filtrar elementos
+            function filtrarGaleria(categoria) {
+                items.forEach(item => {
+                    if (item.dataset.categoria === categoria) {
+                        item.style.display = 'block';
+                        item.style.opacity = '1';
+                    } else {
+                        item.style.display = 'none';
+                        item.style.opacity = '0';
+                    }
+                });
+            }
+            
+            // Event listeners para los filtros
+            filtros.forEach(filtro => {
+                filtro.addEventListener('click', function() {
+                    // Remover clase activa de todos los filtros
+                    filtros.forEach(f => {
+                        f.classList.remove('bg-primary', 'text-white');
+                        f.classList.add('bg-white', 'text-gray-700');
+                    });
+                    
+                    // Agregar clase activa al filtro seleccionado
+                    this.classList.remove('bg-white', 'text-gray-700');
+                    this.classList.add('bg-primary', 'text-white');
+                    
+                    // Filtrar elementos
+                    const categoria = this.dataset.filtro;
+                    filtrarGaleria(categoria);
+                });
+            });
+            
+            // Activar filtro "retrato-colectivo" por defecto
+            const filtroDefecto = document.querySelector('[data-filtro="retrato-colectivo"]');
+            if (filtroDefecto) {
+                filtroDefecto.click();
+            }
+        });
+    </script>
+</body>
+</html>

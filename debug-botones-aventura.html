@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔧 DEBUG BOTONES COMENZAR AVENTURA</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            padding: 20px; 
+            background: #1a1a2e; 
+            color: white; 
+        }
+        .container { 
+            max-width: 800px; 
+            margin: 0 auto; 
+        }
+        .test-panel { 
+            background: rgba(255,255,255,0.1); 
+            padding: 20px; 
+            margin: 15px 0; 
+            border-radius: 10px; 
+            border: 1px solid rgba(255,255,255,0.2); 
+        }
+        button { 
+            background: #4CAF50; 
+            color: white; 
+            border: none; 
+            padding: 15px 25px; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-size: 16px; 
+            font-weight: bold; 
+            margin: 10px; 
+            transition: all 0.3s; 
+        }
+        button:hover { 
+            background: #45a049; 
+            transform: translateY(-2px); 
+        }
+        .debug { 
+            background: #000; 
+            color: #0f0; 
+            padding: 15px; 
+            font-family: monospace; 
+            font-size: 12px; 
+            border-radius: 8px; 
+            max-height: 400px; 
+            overflow-y: auto; 
+            margin: 15px 0; 
+        }
+        .error { color: #ff4444; }
+        .success { color: #44ff44; }
+        .warning { color: #ffaa44; }
+        #fase-contenido { 
+            background: rgba(255,255,255,0.9); 
+            color: #333; 
+            padding: 20px; 
+            border-radius: 10px; 
+            margin: 20px 0; 
+            min-height: 200px; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 DEBUG: BOTONES COMENZAR AVENTURA</h1>
+        
+        <div class="test-panel">
+            <h3>🎯 Tests Específicos</h3>
+            <button onclick="testFunciones()">🔍 TEST FUNCIONES</button>
+            <button onclick="cargarActividad1()">🎭 CARGAR ACTIVIDAD 1</button>
+            <button onclick="testBotonDirecto()">🚀 TEST BOTÓN DIRECTO</button>
+            <button onclick="limpiarDebug()">🧹 LIMPIAR</button>
+        </div>
+        
+        <div class="test-panel">
+            <h3>📍 Área de Actividad (Simulada)</h3>
+            <div id="fase-contenido">
+                <p style="text-align: center; color: #666;">
+                    Aquí aparecerá el contenido de la actividad...
+                </p>
+            </div>
+        </div>
+        
+        <div class="test-panel">
+            <h3>📊 Debug Log</h3>
+            <div id="debug" class="debug">Esperando comandos...</div>
+        </div>
+    </div>
+
+    <script src="js/actividades-interactivas.js"></script>
+    
+    <script>
+        function log(mensaje, tipo = 'info') {
+            const debug = document.getElementById('debug');
+            const tiempo = new Date().toLocaleTimeString();
+            let color = '#0f0';
+            if (tipo === 'error') color = '#ff4444';
+            if (tipo === 'warning') color = '#ffaa44';
+            if (tipo === 'success') color = '#44ff44';
+            
+            debug.innerHTML += `<span style="color: ${color}">[${tiempo}] ${mensaje}</span>\n`;
+            debug.scrollTop = debug.scrollHeight;
+            console.log(mensaje);
+        }
+        
+        function limpiarDebug() {
+            document.getElementById('debug').innerHTML = 'Debug limpiado...\n';
+        }
+        
+        function testFunciones() {
+            log('🔍 === TESTING FUNCIONES CRÍTICAS ===');
+            
+            // Verificar si las funciones están disponibles
+            const funciones = [
+                'ActividadState',
+                'ACTIVIDADES_CONFIG',
+                'mostrarActividad',
+                'iniciarActividadInteractiva',
+                'mostrarFaseActividad',
+                'siguienteFaseActividad'
+            ];
+            
+            funciones.forEach(nombre => {
+                if (window[nombre]) {
+                    log(`✅ ${nombre}: DISPONIBLE (${typeof window[nombre]})`, 'success');
+                } else {
+                    log(`❌ ${nombre}: NO DISPONIBLE`, 'error');
+                }
+            });
+            
+            // Verificar estado específico
+            if (window.ActividadState) {
+                log(`📊 Estado actual: actividad=${window.ActividadState.actividadActual}, fase=${window.ActividadState.faseActual}`, 'info');
+            }
+        }
+        
+        function cargarActividad1() {
+            log('🎭 === CARGANDO ACTIVIDAD 1 ===');
+            
+            try {
+                if (window.mostrarActividad) {
+                    log('🔧 Ejecutando mostrarActividad(1)...', 'info');
+                    window.mostrarActividad(1);
+                    log('✅ mostrarActividad(1) ejecutada sin errores', 'success');
+                    
+                    // Verificar que se haya cargado
+                    setTimeout(() => {
+                        const contenido = document.getElementById('fase-contenido');
+                        if (contenido && contenido.innerHTML.includes('Comenzar')) {
+                            log('✅ Contenido cargado - botón "Comenzar Aventura" detectado', 'success');
+                            
+                            // Buscar el botón específicamente
+                            const boton = contenido.querySelector('button[onclick*="siguienteFaseActividad"]');
+                            if (boton) {
+                                log('✅ Botón encontrado con onclick: ' + boton.getAttribute('onclick'), 'success');
+                            } else {
+                                log('❌ Botón con onclick="siguienteFaseActividad()" NO encontrado', 'error');
+                            }
+                        } else {
+                            log('❌ Contenido no cargado correctamente', 'error');
+                        }
+                    }, 1000);
+                    
+                } else {
+                    log('❌ mostrarActividad NO disponible', 'error');
+                }
+            } catch (error) {
+                log(`💥 ERROR: ${error.message}`, 'error');
+            }
+        }
+        
+        function testBotonDirecto() {
+            log('🚀 === TEST BOTÓN DIRECTO ===');
+            
+            try {
+                // Verificar si siguienteFaseActividad está disponible
+                if (window.siguienteFaseActividad) {
+                    log('✅ siguienteFaseActividad disponible', 'success');
+                    
+                    // Verificar estado antes
+                    if (window.ActividadState && window.ActividadState.actividadActual) {
+                        log('✅ Hay actividad actual: ' + window.ActividadState.actividadActual, 'success');
+                        log('🚀 Ejecutando siguienteFaseActividad() directamente...', 'info');
+                        
+                        // Ejecutar directamente
+                        window.siguienteFaseActividad();
+                        log('✅ siguienteFaseActividad() ejecutada', 'success');
+                        
+                    } else {
+                        log('⚠️ No hay actividad actual cargada. Carga una actividad primero.', 'warning');
+                    }
+                } else {
+                    log('❌ siguienteFaseActividad NO disponible', 'error');
+                }
+            } catch (error) {
+                log(`💥 ERROR: ${error.message}`, 'error');
+            }
+        }
+        
+        // Auto-test al cargar
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                log('🚀 Página cargada, ejecutando test automático...', 'info');
+                testFunciones();
+            }, 1000);
+        });
+        
+        // Capturar errores globales
+        window.addEventListener('error', function(e) {
+            log(`💥 ERROR GLOBAL: ${e.message} en línea ${e.lineno}`, 'error');
+        });
+        
+        // Interceptar clicks en botones del contenido
+        document.addEventListener('click', function(e) {
+            if (e.target.tagName === 'BUTTON' && e.target.getAttribute('onclick')) {
+                log(`🖱️ Click detectado en botón: ${e.target.textContent.trim()}`, 'info');
+                log(`   onclick: ${e.target.getAttribute('onclick')}`, 'info');
+            }
+        });
+    </script>
+</body>
+</html>

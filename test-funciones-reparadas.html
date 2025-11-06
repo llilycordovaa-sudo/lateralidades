@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔧 TEST FUNCIONES REPARADAS</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #1a1a2e; color: white; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .status { padding: 10px; margin: 5px 0; border-radius: 5px; }
+        .ok { background: #4CAF50; }
+        .error { background: #f44336; }
+        .warning { background: #ff9800; }
+        button { background: #007bff; color: white; border: none; padding: 15px 30px; border-radius: 5px; margin: 10px; cursor: pointer; font-size: 16px; }
+        button:hover { background: #0056b3; }
+        .log { background: #000; color: #0f0; padding: 15px; font-family: monospace; font-size: 12px; max-height: 400px; overflow-y: auto; border-radius: 5px; margin: 15px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 TEST DE FUNCIONES REPARADAS</h1>
+        
+        <div id="status-container">
+            <div id="status-carga" class="status warning">📡 Cargando...</div>
+            <div id="status-funciones" class="status warning">🔧 Verificando funciones...</div>
+            <div id="status-config" class="status warning">⚙️ Verificando configuración...</div>
+        </div>
+        
+        <button onclick="testCompleto()">🚀 TEST COMPLETO</button>
+        <button onclick="testActividad1()">🎭 PROBAR ACTIVIDAD 1</button>
+        <button onclick="limpiarLog()">🧹 LIMPIAR</button>
+        
+        <div id="fase-contenido" style="border: 2px dashed #666; padding: 20px; margin: 20px 0; min-height: 100px;">
+            <p style="text-align: center; color: #666;">Área de contenido de actividad</p>
+        </div>
+        
+        <div id="log" class="log">Iniciando test...</div>
+    </div>
+
+    <script src="js/actividades-interactivas.js"></script>
+    
+    <script>
+        function log(mensaje) {
+            const logDiv = document.getElementById('log');
+            const tiempo = new Date().toLocaleTimeString();
+            logDiv.innerHTML += `[${tiempo}] ${mensaje}\n`;
+            logDiv.scrollTop = logDiv.scrollHeight;
+            console.log(mensaje);
+        }
+
+        function updateStatus(id, tipo, mensaje) {
+            const elemento = document.getElementById(id);
+            elemento.className = `status ${tipo}`;
+            elemento.innerHTML = mensaje;
+        }
+
+        function testCompleto() {
+            log('🔧 === TEST DE FUNCIONES REPARADAS ===');
+            
+            // Test de carga
+            updateStatus('status-carga', 'ok', '✅ JavaScript cargado');
+            log('✅ Archivo JavaScript cargado');
+            
+            // Test de funciones críticas
+            const funcionesCriticas = {
+                'ActividadState': window.ActividadState,
+                'ACTIVIDADES_CONFIG': window.ACTIVIDADES_CONFIG,
+                'iniciarActividadInteractiva': window.iniciarActividadInteractiva,
+                'mostrarActividad': window.mostrarActividad,
+                'siguienteFaseActividad': window.siguienteFaseActividad,
+                'mostrarFaseActividad': window.mostrarFaseActividad,
+                'activarHerramientaMancha': window.activarHerramientaMancha,
+                'limpiarManchaPersonal': window.limpiarManchaPersonal,
+                'guardarManchaPersonal': window.guardarManchaPersonal,
+                'inicializarMiniSimulador': window.inicializarMiniSimulador
+            };
+            
+            let funcionesOK = 0;
+            let totalFunciones = Object.keys(funcionesCriticas).length;
+            
+            for (const [nombre, funcion] of Object.entries(funcionesCriticas)) {
+                if (funcion) {
+                    log(`✅ ${nombre}: ${typeof funcion}`);
+                    funcionesOK++;
+                } else {
+                    log(`❌ ${nombre}: NO DISPONIBLE`);
+                }
+            }
+            
+            if (funcionesOK === totalFunciones) {
+                updateStatus('status-funciones', 'ok', `✅ Todas las funciones OK (${funcionesOK}/${totalFunciones})`);
+            } else {
+                updateStatus('status-funciones', 'error', `❌ Funciones faltantes (${funcionesOK}/${totalFunciones})`);
+            }
+            
+            // Test de configuración
+            if (window.ACTIVIDADES_CONFIG && window.ACTIVIDADES_CONFIG.actividad1) {
+                const numActividades = Object.keys(window.ACTIVIDADES_CONFIG).length;
+                log(`✅ ${numActividades} actividades configuradas`);
+                updateStatus('status-config', 'ok', `✅ ${numActividades} actividades disponibles`);
+                
+                // Detallar cada actividad
+                Object.keys(window.ACTIVIDADES_CONFIG).forEach(actId => {
+                    const act = window.ACTIVIDADES_CONFIG[actId];
+                    log(`   📋 ${actId}: "${act.titulo}" - ${act.fases ? act.fases.length : 0} fases`);
+                });
+            } else {
+                updateStatus('status-config', 'error', '❌ Configuración de actividades no encontrada');
+            }
+            
+            log('🎉 Test completo finalizado');
+        }
+
+        function testActividad1() {
+            log('🎭 === PROBANDO ACTIVIDAD 1 ===');
+            
+            try {
+                if (window.mostrarActividad) {
+                    log('🔧 Llamando mostrarActividad(1)...');
+                    window.mostrarActividad(1);
+                    log('✅ mostrarActividad ejecutada sin errores');
+                    
+                    setTimeout(() => {
+                        const contenido = document.getElementById('fase-contenido');
+                        if (contenido && contenido.innerHTML.includes('Manchas')) {
+                            log('✅ Contenido de actividad cargado correctamente');
+                        } else {
+                            log('⚠️ Contenido de actividad no detectado en este test');
+                        }
+                    }, 1000);
+                } else {
+                    log('❌ mostrarActividad no disponible');
+                }
+            } catch (error) {
+                log(`💥 Error: ${error.message}`);
+            }
+        }
+
+        function limpiarLog() {
+            document.getElementById('log').innerHTML = 'Log limpiado...\n';
+        }
+
+        // Auto-ejecutar cuando cargue
+        window.addEventListener('load', function() {
+            log('🚀 Test iniciado automáticamente');
+            setTimeout(() => {
+                testCompleto();
+            }, 1000);
+        });
+        
+        // Capturar errores
+        window.addEventListener('error', function(e) {
+            log(`💥 Error JavaScript: ${e.message} en línea ${e.lineno}`);
+            updateStatus('status-carga', 'error', '❌ Error de JavaScript detectado');
+        });
+    </script>
+</body>
+</html>

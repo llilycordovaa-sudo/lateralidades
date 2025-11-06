@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔥 TEST FUNCIONALIDAD INTERACTIVA RESTAURADA</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            padding: 20px; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; 
+            min-height: 100vh;
+        }
+        .container { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+        }
+        .test-section { 
+            background: rgba(255,255,255,0.1); 
+            backdrop-filter: blur(10px);
+            padding: 25px; 
+            margin: 20px 0; 
+            border-radius: 15px; 
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .actividad-btn { 
+            background: linear-gradient(135deg, #ff6b6b, #ff8e53);
+            color: white; 
+            border: none; 
+            padding: 20px 25px; 
+            border-radius: 12px; 
+            cursor: pointer; 
+            font-size: 16px; 
+            font-weight: bold; 
+            margin: 10px; 
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .actividad-btn:hover { 
+            transform: translateY(-3px) scale(1.05); 
+        }
+        #lab-content-container { 
+            background: rgba(255,255,255,0.95); 
+            color: #333; 
+            padding: 30px; 
+            border-radius: 15px; 
+            margin: 20px 0; 
+            min-height: 500px;
+        }
+        .debug { 
+            background: #000; 
+            color: #0f0; 
+            padding: 20px; 
+            font-family: monospace; 
+            border-radius: 10px; 
+            max-height: 400px; 
+            overflow-y: auto; 
+        }
+        .success { color: #44ff44; }
+        .error { color: #ff4444; }
+        .warning { color: #ffaa44; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔥 TEST: FUNCIONALIDAD INTERACTIVA RESTAURADA</h1>
+        
+        <div class="test-section">
+            <h3>🎯 Prueba de Actividades con Funcionalidad Completa</h3>
+            <p>Ahora debería aparecer: simuladores de manchas, meditación, canvas interactivos, etc.</p>
+            
+            <button onclick="mostrarActividad(1)" class="actividad-btn">
+                🎲 Actividad 1 - Manchas Interactivas
+            </button>
+            
+            <button onclick="mostrarActividad(2)" class="actividad-btn">
+                🏠 Actividad 2 - Con Meditación
+            </button>
+            
+            <button onclick="mostrarActividad(4)" class="actividad-btn">
+                🖼️ Actividad 4 - Simulador de Manchas
+            </button>
+            
+            <button onclick="testInteractivos()" class="actividad-btn" style="background: linear-gradient(135deg, #4ecdc4, #44a08d);">
+                🔍 TEST ELEMENTOS INTERACTIVOS
+            </button>
+        </div>
+        
+        <div class="test-section">
+            <h3>📋 Área de Desarrollo (con funcionalidad completa)</h3>
+            <div id="lab-content-container">
+                <div style="text-align: center; padding: 50px;">
+                    <h3>🧪 Sistema Interactivo Restaurado</h3>
+                    <p>Selecciona una actividad para ver simuladores, canvas y meditación.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h3>📊 Debug Console</h3>
+            <div id="debug" class="debug">Verificando funcionalidad restaurada...</div>
+        </div>
+    </div>
+
+    <script src="js/actividades-interactivas.js"></script>
+    
+    <script>
+        function log(mensaje, tipo = 'info') {
+            const debug = document.getElementById('debug');
+            const tiempo = new Date().toLocaleTimeString();
+            let color = '#0f0';
+            if (tipo === 'error') color = '#ff4444';
+            if (tipo === 'warning') color = '#ffaa44';
+            if (tipo === 'success') color = '#44ff44';
+            
+            debug.innerHTML += `<span style="color: ${color}">[${tiempo}] ${mensaje}</span>\n`;
+            debug.scrollTop = debug.scrollHeight;
+            console.log(mensaje);
+        }
+        
+        function testInteractivos() {
+            log('🔥 === TESTING FUNCIONES INTERACTIVAS ===', 'success');
+            
+            // Test funciones críticas interactivas
+            const funcionesInteractivas = [
+                'generarSimuladorManchaAvanzado',
+                'iniciarMeditacion',
+                'activarHerramientaMancha',
+                'inicializarCanvasManifiesto',
+                'generarManchaAleatoria',
+                'limpiarCanvas',
+                'guardarCreacion'
+            ];
+            
+            let disponibles = 0;
+            funcionesInteractivas.forEach(nombre => {
+                if (window[nombre]) {
+                    log(`✅ ${nombre}: DISPONIBLE`, 'success');
+                    disponibles++;
+                } else {
+                    log(`❌ ${nombre}: NO DISPONIBLE`, 'error');
+                }
+            });
+            
+            // Test específico de meditación
+            if (window.MeditacionState) {
+                log(`📿 MeditacionState: ${JSON.stringify(window.MeditacionState)}`, 'info');
+            }
+            
+            // Test específico de canvas
+            if (window.ActividadState && window.ActividadState.canvas !== undefined) {
+                log(`🎨 Canvas en ActividadState: ${window.ActividadState.canvas}`, 'info');
+            }
+            
+            const porcentaje = Math.round((disponibles / funcionesInteractivas.length) * 100);
+            if (porcentaje === 100) {
+                log(`🎉 FUNCIONALIDAD INTERACTIVA COMPLETA (${porcentaje}%)`, 'success');
+            } else {
+                log(`⚠️ Funcionalidad parcial (${porcentaje}%)`, 'warning');
+            }
+        }
+        
+        // Auto-test al cargar
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                log('🚀 Sistema interactivo cargado', 'success');
+                testInteractivos();
+            }, 1000);
+        });
+        
+        // Monitor de errores
+        window.addEventListener('error', (e) => {
+            log(`💥 ERROR: ${e.message} (línea ${e.lineno})`, 'error');
+        });
+    </script>
+</body>
+</html>

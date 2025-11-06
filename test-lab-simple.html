@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Rápido Laboratorio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-4">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold text-center mb-6">⚡ Test Rápido del Laboratorio</h1>
+        
+        <!-- Simulamos la estructura del HTML principal -->
+        <section id="vista-laboratorio" class="vista">
+            <div class="container mx-auto px-4 py-8">
+                <div id="lab-content-container" class="max-w-5xl mx-auto bg-white rounded-2xl shadow-xl p-4 sm:p-8">
+                    <p class="text-gray-500 text-center">Esperando inicialización...</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Log de estado -->
+        <div class="mt-6 bg-black text-green-400 p-4 rounded-lg font-mono text-sm">
+            <div id="console-log"></div>
+        </div>
+        
+        <!-- Botón de prueba manual -->
+        <div class="mt-4 text-center">
+            <button onclick="manualTest()" class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-bold">
+                🔄 Reiniciar Test
+            </button>
+        </div>
+    </div>
+
+    <!-- Scripts exactos del HTML principal -->
+    <script src="js/modelo-pedagogico.js"></script>
+    <script src="js/guia-didactica-fixed.js"></script>
+    <script src="js/resources.js"></script>
+    <script src="js/main-clean.js"></script>
+    <script src="js/laboratorio-original.js"></script>
+    <script src="js/simulador-mancha-avanzado.js"></script>
+    <script src="js/sistema-pinceles-avanzado.js"></script>
+    <script src="js/ui-pinceles-avanzada.js"></script>
+    <script src="js/actividades-interactivas.js"></script>
+
+    <script>
+        function log(message) {
+            const consoleLog = document.getElementById('console-log');
+            const div = document.createElement('div');
+            div.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            consoleLog.appendChild(div);
+            consoleLog.scrollTop = consoleLog.scrollHeight;
+            console.log(message);
+        }
+
+        function testSequence() {
+            log('🚀 Iniciando secuencia de test...');
+            
+            // Paso 1: Verificar estado inicial
+            log(`📦 Container existe: ${!!document.getElementById('lab-content-container')}`);
+            log(`🔧 initializeLaboratorioCreativo: ${typeof window.initializeLaboratorioCreativo}`);
+            log(`🎨 iniciarActividadInteractiva: ${typeof window.iniciarActividadInteractiva}`);
+            
+            // Paso 2: Simular navegación al laboratorio (como hace main-clean.js)
+            log('🧭 Simulando navegación al laboratorio...');
+            
+            try {
+                // Esto es exactamente lo que hace main-clean.js
+                if (typeof window.initializeLaboratorioCreativo === 'function') {
+                    log('✅ Llamando a initializeLaboratorioCreativo...');
+                    window.initializeLaboratorioCreativo();
+                } else {
+                    log('❌ initializeLaboratorioCreativo no disponible');
+                }
+            } catch (error) {
+                log(`❌ Error en inicialización: ${error.message}`);
+            }
+            
+            // Paso 3: Verificar si se generaron los botones
+            setTimeout(() => {
+                const botones = document.querySelectorAll('.actividad-card');
+                log(`🎯 Botones generados: ${botones.length}`);
+                
+                if (botones.length > 0) {
+                    log('✅ Botones encontrados, probando click...');
+                    
+                    // Simular click en el primer botón
+                    const primerBoton = botones[0];
+                    const actividadId = primerBoton.getAttribute('data-actividad');
+                    log(`🖱️ Simulando click en: ${actividadId}`);
+                    
+                    try {
+                        primerBoton.click();
+                        log('✅ Click ejecutado exitosamente');
+                    } catch (error) {
+                        log(`❌ Error en click: ${error.message}`);
+                    }
+                } else {
+                    log('❌ No se generaron botones');
+                }
+            }, 1000);
+        }
+
+        function manualTest() {
+            document.getElementById('console-log').innerHTML = '';
+            document.getElementById('lab-content-container').innerHTML = '<p class="text-gray-500 text-center">Esperando inicialización...</p>';
+            setTimeout(testSequence, 100);
+        }
+
+        // Override console.log para capturar mensajes del sistema
+        const originalLog = console.log;
+        console.log = function(...args) {
+            originalLog.apply(console, args);
+            const message = args.join(' ');
+            if (message.includes('🎨') || message.includes('✅') || message.includes('❌') || message.includes('🔧')) {
+                log(message);
+            }
+        };
+
+        // Ejecutar test automáticamente
+        window.addEventListener('load', () => {
+            setTimeout(testSequence, 2000);
+        });
+    </script>
+</body>
+</html>
